@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\c\u002B\u002BStudy\\C_StudyJames\\1.ProgramBasic\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{04E1C743-3382-4B9E-AC67-5385F62921BE}|1.ProgramBasic\\1.ProgramBasic.vcxproj|D:\\c\u002B\u002BStudy\\C_StudyJames\\1.ProgramBasic\\1.ProgramBasic\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{04E1C743-3382-4B9E-AC67-5385F62921BE}|1.ProgramBasic\\1.ProgramBasic.vcxproj|solutionrelative:1.ProgramBasic\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "D:\\c\u002B\u002BStudy\\C_StudyJames\\1.ProgramBasic\\1.ProgramBasic\\main.cpp",
+              "RelativeDocumentMoniker": "1.ProgramBasic\\main.cpp",
+              "ToolTip": "D:\\c\u002B\u002BStudy\\C_StudyJames\\1.ProgramBasic\\1.ProgramBasic\\main.cpp",
+              "RelativeToolTip": "1.ProgramBasic\\main.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAABOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-20T10:16:37.029Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
