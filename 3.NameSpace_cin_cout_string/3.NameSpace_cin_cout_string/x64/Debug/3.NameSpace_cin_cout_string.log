@@ -1,0 +1,6 @@
+﻿  main.cpp
+D:\c++Study\C_StudyJames\3.NameSpace_cin_cout_string\3.NameSpace_cin_cout_string\main.cpp(146,48): warning C4311: '형식 캐스트': 'const char *'에서 'int'(으)로 포인터가 잘립니다.
+D:\c++Study\C_StudyJames\3.NameSpace_cin_cout_string\3.NameSpace_cin_cout_string\main.cpp(146,48): warning C4302: '형식 캐스트': 'const char *'에서 'int'(으)로 잘립니다.
+D:\c++Study\C_StudyJames\3.NameSpace_cin_cout_string\3.NameSpace_cin_cout_string\main.cpp(154,54): warning C4311: '형식 캐스트': 'const char *'에서 'int'(으)로 포인터가 잘립니다.
+D:\c++Study\C_StudyJames\3.NameSpace_cin_cout_string\3.NameSpace_cin_cout_string\main.cpp(154,54): warning C4302: '형식 캐스트': 'const char *'에서 'int'(으)로 잘립니다.
+  3.NameSpace_cin_cout_string.vcxproj -> D:\c++Study\C_StudyJames\3.NameSpace_cin_cout_string\x64\Debug\3.NameSpace_cin_cout_string.exe
