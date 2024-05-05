@@ -1,4 +1,6 @@
 ﻿  main.cpp
-D:\c++Study\C_StudyJames\4.DataType,Variable\4.DataType,Variable\main.cpp(45,17): warning C4305: '초기화 중': 'int'에서 'char'(으)로 잘립니다.
-D:\c++Study\C_StudyJames\4.DataType,Variable\4.DataType,Variable\main.cpp(45,13): warning C4309: '초기화 중': 상수 값이 잘립니다.
+D:\c++Study\C_StudyJames\4.DataType,Variable\4.DataType,Variable\main.cpp(49,10): warning C4305: '=': 'int'에서 'unsigned char'(으)로 잘립니다.
+D:\c++Study\C_StudyJames\4.DataType,Variable\4.DataType,Variable\main.cpp(49,7): warning C4309: '=': 상수 값이 잘립니다.
+D:\c++Study\C_StudyJames\4.DataType,Variable\4.DataType,Variable\main.cpp(54,9): warning C4309: '=': 상수 값이 잘립니다.
+D:\c++Study\C_StudyJames\4.DataType,Variable\4.DataType,Variable\main.cpp(161,8): warning C4309: '=': 상수 값이 잘립니다.
   4.DataType,Variable.vcxproj -> D:\c++Study\C_StudyJames\4.DataType,Variable\Debug\4.DataType,Variable.exe
