@@ -127,5 +127,26 @@ int main()
 	std::cout << "!false = " << !false << std::endl;						//1
 	std::cout << "!true = " << !true << std::endl;							//0
 
+	/*
+		관계연산자
+		< , > , <= ,>= ==(같다) , !=(다르다)
+		관계연산자는 값대 값을 연산하여 참/거짓으로 나오게 된다.
+	*/
+
+	std::cout << "100 < 200 = " << (100 < 200) << std::endl;
+	std::cout << "100 > 200 = " << (100 > 200) << std::endl;
+	std::cout << "100 <= 200 = " << (100 <= 200) << std::endl;
+	std::cout << "100 >= 200 = " << (100 >= 200) << std::endl;
+	std::cout << "100 == 200 = " << (100 == 200) << std::endl;
+	std::cout << "100 != 200 = " << (100 != 200) << std::endl;
+
+	//변수를 이용한 관계연산자
+	iNumber = 0;
+
+	iNumber = 300;
+
+	std::cout << "iNumber < 200 = " << (iNumber < 200) << std::endl;
+	std::cout << "iNumber != 200 = " << (iNumber != 200) << std::endl;
+
 	return 0;
 }
