@@ -1,0 +1,4 @@
+﻿  main.cpp
+D:\c++Study\C_StudyJames\9.Const\9.Const\main.cpp(26,25): warning C4305: '초기화 중': 'double'에서 'float'(으)로 잘립니다.
+D:\c++Study\C_StudyJames\9.Const\9.Const\main.cpp(28,18): warning C4305: '=': 'double'에서 'float'(으)로 잘립니다.
+  9.Const.vcxproj -> D:\c++Study\C_StudyJames\9.Const\Debug\9.Const.exe
