@@ -235,7 +235,7 @@ int main()
 		std::cout << "¢À";
 	}
 
-
+	system("pause");
 
 
 
