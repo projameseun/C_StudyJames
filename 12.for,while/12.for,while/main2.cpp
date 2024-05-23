@@ -45,6 +45,167 @@ int main()
 	} while (iNumber == 0);*/
 
 
+
+	/*
+	*
+	**
+	***
+	****
+	*****
+
+	*/
+
+	system("cls");
+
+	for (int i = 0; i < 5; ++i)
+	{
+		for (int j = 0; j <= i; ++j)
+		{
+			std::cout << "*";
+		}
+
+		std::cout << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	/*
+	*****
+	****
+	***
+	**
+	*
+	*/
+	for (int i = 4; i >= 0; --i)
+	{
+		for (int j = 0; j <= i; ++j)
+		{
+			std::cout << "*";
+		}
+
+		std::cout << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	/*
+		*
+	   **
+	  ***
+	 ****
+	*****
+	*/
+
+	for (int i = 0; i < 5; ++i)
+	{
+		for (int j = 4; j > i; --j)
+		{
+			std::cout << " ";
+		}
+		for (int j = 0; j <= i; ++j)
+		{
+			std::cout << "*";
+		}
+		std::cout << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	/*
+	*****
+	 ****
+	  ***
+	   **
+		*
+	*/
+
+	for (int i = 4; i >= 0; --i)
+	{
+		for (int j = 4; j > i; --j)
+		{
+			std::cout << " ";
+		}
+
+		for (int j = 0; j <= i; ++j)
+		{
+			std::cout << "*";
+		}
+
+		std::cout << std::endl;
+	}
+
+	std::cout << std::endl;
+
+
+	/*
+	   *
+	  ***
+	 *****
+	*******
+	*/
+
+	//공백 3 2 1 0 
+	//별이 2개씩추가
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 3; j > i; --j)
+		{
+			std::cout << " ";
+		}
+
+		for (int j = 0; j < i * 2 + 1; ++j)
+		{
+			std::cout << "*";
+		}
+
+		std::cout << std::endl;
+	}
+
+	std::cout << std::endl;
+
+	/*
+		   *
+		  ***
+		 *****
+		*******
+		 *****
+		  ***
+		   *
+
+	*/
+
+	//i 가 0 일때와 6일때 같아야한다 
+	//i 가 1 일때와 5일때 같아야한다 
+	//i 가 2 일때와 4일때 같아야한다 
+
+	int iStar = 0;
+
+
+
+	for (int i = 0; i < 7; ++i)
+	{
+		if (i > 3)
+		{
+			iStar = 6 - i;
+		}
+		else
+		{
+			iStar = i;
+		}
+
+		for (int j = 3; j > iStar; --j)
+		{
+			std::cout << " ";
+		}
+
+		for (int j = 0; j < iStar * 2 + 1; ++j)
+		{
+			std::cout << "*";
+		}
+
+		std::cout << std::endl;
+	}
+
 	return 0;
 }
 
