@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Calculate.h"
 
 /*
 	변수의 종류 4가지
@@ -102,9 +103,74 @@
 
 */
 
+//전역변수
+int data = 0;
+
+void Func()
+{
+	
+	int a = 0;
+	data += 1;
+
+	std::cout << "data = " << data << std::endl;
+}
+
+void StatiFunc()
+{
+	g_StaticNum++;
+	g_StaticNum++;
+
+	static int g_StaticNum2 = 0;	//초기화를 0으로 한번만 하고 2번째 들어올때는 건너간다. 실제 어샘블리어코드에서 해주고 있는게 있다
+									//그래서 g_StaticNum2 변수는 ++을 하게되고 계속 함수를 실행하면 값이 0 으로 초기화가 되는게 아니라 값이 계속 ++되고 있는 것이다.
+	g_StaticNum2++;
+
+	std::cout << "g_StatiNum2 : " << g_StaticNum2 << std::endl;
+	
+	
+}
+
 
 int main()
 {
+	Func();
+	
+	int iNum = Add(10, 20);
+
+	std::cout << "iNum = " << iNum << std::endl;
+
+	g_StaticNum++;		//이 스태틱변수는 원본이 cal헤더에 있다 그래서 여기서 값을 증가 시켜도 cal에 static변수랑은 상관이없다 이유는 서로 지역이 다르다 주소가 다르기 때문이다.
+	g_StaticNum++;
+
+	StatiFunc();
+
+	CalFun();
+
+
+	//g_StaticNum2++; 스태틱의 특징 내 지역에서만 사용이 가능하기 때문에 이 변수는 StaticFunc함수에서만 접근이 가능하다.
+	
+	std::cout << "Main 함수의 스태틱 값 :" << g_StaticNum << std::endl;
+
+	//둘의주소는 다르다.
+
+	StaticAdress();
+	std::cout << "Main 함수의 스태틱 주소값 : " << &g_StaticNum << std::endl;
+
+	//extern
+	ExFunc();
+	ExFunc();
+	ExFunc();
+	ExFunc();
+	ExFunc();
+
+	g_exNum++;
+	g_exNum++;
+
+	printf("g_exNum = %d\n", g_exNum);
+
+	//둘의 주소는 같다
+	ExAddress();
+	std::cout << "Main g_exNum의 주소 : " << &g_exNum << std::endl;
+	
 
 	return 0;
 }
