@@ -13,7 +13,7 @@ void ProcessMouseEvent(MOUSE_EVENT_RECORD re)
 		if (re.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED)
 		{
 			std::cout << "Left Button pressed" << std::endl;
-			std::cout << "Mouse moved to (" << re.dwMousePosition.X << ", " << re.dwMousePosition.Y << ")" << std::endl;
+			//std::cout << "Mouse moved to (" << re.dwMousePosition.X << ", " << re.dwMousePosition.Y << ")" << std::endl;
 		}
 		else if (re.dwButtonState & RIGHTMOST_BUTTON_PRESSED) 
 		{
@@ -26,7 +26,7 @@ void ProcessMouseEvent(MOUSE_EVENT_RECORD re)
 		break;
 	}
 	case MOUSE_MOVED: // 마우스 이동
-		 //std::cout << "Mouse moved to (" << re.dwMousePosition.X << ", " << re.dwMousePosition.Y << ")" << std::endl;
+		 std::cout << "Mouse moved to (" << re.dwMousePosition.X << ", " << re.dwMousePosition.Y << ")" << std::endl;
 		break;
 
 	default:

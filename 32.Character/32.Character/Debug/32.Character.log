@@ -1,0 +1,3 @@
+﻿  main.cpp
+D:\c++Study\manyangst\32.Character\32.Character\main.cpp(8,13): warning C4305: '초기화 중': 'int'에서 'bool'(으)로 잘립니다.
+  32.Character.vcxproj -> D:\c++Study\manyangst\32.Character\Debug\32.Character.exe

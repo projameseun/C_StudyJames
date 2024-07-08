@@ -1,0 +1,3 @@
+﻿  main.cpp
+D:\c++Study\manyangst\33.String\33.String\main.cpp(60,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  33.String.vcxproj -> D:\c++Study\manyangst\33.String\Debug\33.String.exe
