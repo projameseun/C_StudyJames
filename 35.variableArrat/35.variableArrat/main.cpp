@@ -18,5 +18,15 @@ int main()
 		PushBack(&arr, i);
 	}
 
+	for (int i = 0; i < arr.iSize; ++i)
+	{
+		std::cout << arr.pData[i] << std::endl;
+	}
+
+
+	Reallcate(&arr);
+
+	DestroyArr(&arr);
+
 	return 0;
 }

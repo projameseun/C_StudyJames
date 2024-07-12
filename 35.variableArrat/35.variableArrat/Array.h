@@ -19,4 +19,7 @@ void ReleaseArr(FArray* pArr);
 //추가함수
 void PushBack(FArray* pArr, int idata);
 
+//삭제함수
+void DestroyArr(FArray* pArr);
+
 void Reallcate(FArray* pArr);

@@ -34,12 +34,31 @@ void PushBack(FArray* pArr, int idata)
 	pArr->pData[pArr->iSize++] = idata;
 }
 
+void DestroyArr(FArray* pArr)
+{
+	//if (pArr != nullptr)
+	//{
+	//	delete[] pArr;
+	//	pArr = nullptr;
+	//}
+
+	if (pArr != nullptr)
+	{
+		//free(pArr->pInt);
+		delete[] pArr->pData;
+		pArr->iSize = 0;
+		pArr->iMaxSize = 0;
+
+	}
+
+}
+
 void Reallcate(FArray* pArr)
 {
 	int* ptr = (int*)malloc(pArr->iMaxSize * 2 * sizeof(int));
 
 
-	//int* ptr = new int[pArr->iMaxSize * 2];
+	//int* ptr = new int[pArr->iMaxSize * 2 ];
 	//기존공간에 있던 데이터를 새로 할당한 공간으로 복사해 준다.
 	for (int i = 0; i < pArr->iSize; ++i)
 	{
