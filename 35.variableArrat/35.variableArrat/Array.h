@@ -6,7 +6,17 @@ struct FArray
 	int		iSize;
 	int		iMaxSize;
 	
-public:
-	void InitArr(FArray* array);
+
 
 };
+
+
+void InitArr(FArray* pArr);
+
+//해제 함수
+void ReleaseArr(FArray* pArr);
+
+//추가함수
+void PushBack(FArray* pArr, int idata);
+
+void Reallcate(FArray* pArr);
