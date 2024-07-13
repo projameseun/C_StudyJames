@@ -82,3 +82,9 @@ void Reallcate(FArray* pArr)
 	pArr->iMaxSize *= 2;
 	
 }
+
+void Sort(FArray* pArr, void(*_SortFunc)(int*, int))
+{
+	_SortFunc(pArr->pData, pArr->iSize);
+}
+

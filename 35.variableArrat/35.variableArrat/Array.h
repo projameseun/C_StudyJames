@@ -23,3 +23,6 @@ void PushBack(FArray* pArr, int idata);
 void DestroyArr(FArray* pArr);
 
 void Reallcate(FArray* pArr);
+
+//Á¤·Ä
+void Sort(FArray* pArr,void(*_SortFunc)(int*,int));

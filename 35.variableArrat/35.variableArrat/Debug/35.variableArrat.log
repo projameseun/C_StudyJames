@@ -1,2 +1,4 @@
-﻿  Array.cpp
+﻿  main.cpp
+D:\c++Study\C_StudyJames\35.variableArrat\35.variableArrat\main.cpp(107,26): warning C4101: 'func3' :참조되지 않은 지역 변수입니다.
+D:\c++Study\C_StudyJames\35.variableArrat\35.variableArrat\main.cpp(107,19): warning C4101: 'func2' :참조되지 않은 지역 변수입니다.
   35.variableArrat.vcxproj -> D:\c++Study\C_StudyJames\35.variableArrat\Debug\35.variableArrat.exe
