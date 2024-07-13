@@ -42,6 +42,8 @@ void DestroyArr(FArray* pArr)
 	//	pArr = nullptr;
 	//}
 
+	
+
 	if (pArr != nullptr)
 	{
 		//free(pArr->pInt);

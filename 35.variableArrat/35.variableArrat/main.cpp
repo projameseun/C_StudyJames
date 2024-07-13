@@ -24,7 +24,7 @@ int main()
 	}
 
 
-	Reallcate(&arr);
+	//Reallcate(&arr);
 
 	DestroyArr(&arr);
 
