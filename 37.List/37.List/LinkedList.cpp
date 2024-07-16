@@ -47,6 +47,23 @@ void PushBack(FLinkedList* _pList, int _data)
 	_pList->iCount++;
 }
 
+void PushFront(FLinkedList* _pList,int _data)
+{
+	//새로 생성시킨 노드의 다음을 기존의 헤드로 지정
+	FNode* pNode = (FNode*)malloc(sizeof(FNode));
+
+	pNode->iData = _data;
+	pNode->pNextNode = _pList->pHeadNode;
+
+	//해당 노드 포인터 갱신
+	_pList->pHeadNode = pNode;
+
+	//카운터증가
+	++_pList->iCount;
+	
+}
+
+
 //재귀방식
 void Destroy(FNode* _pNode)
 {
@@ -74,3 +91,4 @@ void DestroyList(FLinkedList* _pList)
 		pDelNode = pNext;
 	}
 }
+
