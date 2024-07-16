@@ -23,5 +23,4 @@ void PushBack(FLinkedList* _pList, int _data);
 void DestroyList(FLinkedList* _pList);
 
 //연결형 리스트 데이터 앞에추가
-
 void PushFront(FLinkedList* _pList,int _data);
