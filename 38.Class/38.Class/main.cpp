@@ -147,7 +147,7 @@ public:
 	}
 
 	//대입연산자 
-	 const CPoint& operator = (const CPoint& _Other)
+	 CPoint& operator = (const CPoint& _Other)
 	{
 		//CPoint result;
 		
@@ -189,6 +189,8 @@ int main()
 
 	//이렇게 하면 클래스내에 대입연산자가 있어서 가능한건데 직접내가 연산자 오버로딩을 사용하여 만들수도있따
 	pt1 = pt2;
+
+	pt1 = pt2 = pt3;
 
 	pt1.x = 10;
 	pt1.y = 20;
