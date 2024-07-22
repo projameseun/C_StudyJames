@@ -52,11 +52,50 @@ void CArray::resize(int _Size)
 	}
 
 	delete[]  m_pInt;
+	
 
 	m_pInt = pTemp;
 
 	m_iMaxCount = _Size;
 	std::cout << "Max : " << m_iMaxCount << std::endl;
+}
+
+void CArray::Delete(int _Size)
+{
+
+	int* pTemp = new int[m_iCount-1];
+
+	int k = 0;
+
+	//데이터들을 새로 할당한공간으로 복사한다
+	for (int i = 0; i < m_iCount; ++i)
+	{
+		if (i == _Size)continue;
+		pTemp[k] = m_pInt[i];
+
+		k++;
+
+	}
+
+
+
+	if (m_pInt != nullptr)
+	{
+		delete[] m_pInt;
+		m_pInt = nullptr;
+		m_iCount--;
+	}
+	
+	m_pInt = pTemp;
+
+
+	m_iMaxCount = m_iCount;
+	
+	int a = 0;
+	
+
+	
+
 }
 
 //int CArray::operator[](int _idx)

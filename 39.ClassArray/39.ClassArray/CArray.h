@@ -29,6 +29,7 @@ public:
 public:
 	void push_back(int _Data);
 	void resize(int _Size);
+	void Delete(int Num);
 
 	//int operator[] (int _idx);
 	int& operator[] (int _idx);
