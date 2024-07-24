@@ -43,11 +43,11 @@ int main()
 
 	std::cout << "=====================" << std::endl;
 	
-	arr.Delete(4);
+	arr.Delete(5);
 
 	for (int i = 0; i <arr.GetCount(); ++i)
 	{
-		std::cout << arr.GetpInt()[i] << std::endl;
+		std::cout << arr[i] << std::endl;
 	}
 
 	//std::vector <int> vec;
