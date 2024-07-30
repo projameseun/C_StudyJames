@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include "CArray.h"
 
 //오버로딩을 통해서 여러자료형에 더하기 함수기능을 만들수있는데
 //만약에 이걸 하나의 함수를 통해서 자료형을 그 상황에 맞게 변경해줄수 있다면 좀더 효율적이고 기능적일거다
@@ -65,6 +65,33 @@ int main()
 	OutPut<int>(iNumber);
 	OutPut<float>(fNumber);
 	//OutPut(iNumber);
+
+	//CArray arr;  //템플릿이 되는순간 안된다
+	CArray<int> arr;
+
+	arr.push_back(10);
+	arr.push_back(20);
+	arr.push_back(30);
+
+	CArray<float> arr2;
+
+	arr2.push_back(10.4f);
+	arr2.push_back(20.66f);
+	arr2.push_back(30.22f);
+
+	
+	for (int i = 0; i < arr.GetCount(); ++i)
+	{
+		std::cout << arr.GetData()[i] << std::endl;
+	}
+
+	for (int i = 0; i < arr2.GetCount(); ++i)
+	{
+		std::cout << arr2.GetData()[i] << std::endl;
+	}
+	
+
+	int a = 0;
 
 	return 0;
 }
