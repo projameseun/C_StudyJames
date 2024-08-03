@@ -8,7 +8,7 @@ int main()
 
 	for (int i = 0; i < 4; ++i)
 	{
-		list.Pushback(i);
+		list.PushFront(i);
 	}
 
 	return 0;

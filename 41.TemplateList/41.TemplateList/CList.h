@@ -108,11 +108,21 @@ template<class T>
 	  //새로 생성된 노드의 다음을 현재 헤드노드의 주소값으로 채움
 	  tFNode<T>* pNewNode = new tFNode<T>(_data, nullptr, m_pHeadNode);
 
-	  //현재 헤드노드의 이전노드 주소값을 새로생성된 노드의 주소로채움
-	  m_pHeadNode->pPrevNode = pNewNode;
+	  if (nullptr == m_pHeadNode)
+	  {
+		  m_pHeadNode = pNewNode;
+		  m_pTailNode = pNewNode;
+	  }
+	  else
+	  {
+		  //현재 헤드노드의 이전노드 주소값을 새로생성된 노드의 주소로채움
+		  m_pHeadNode->pPrevNode = pNewNode;
 
-	  //새로 생성된 노드를 새로 생성된 노드의 주소를  새로운 헤드주소로 갱신 
-	  m_pHeadNode = pNewNode;
+		  //리스트가 새로 생성된 노드를 새로운 헤드로 갱신
+		  m_pHeadNode = pNewNode;
+	  }
+
+	 
 
 	  ++m_iCount;
 	  
