@@ -1,0 +1,5 @@
+﻿  main.cpp
+D:\c++Study\C_StudyJames\43.STL\43.STL\main.cpp(26,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+D:\c++Study\C_StudyJames\43.STL\43.STL\main.cpp(40,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+D:\c++Study\C_StudyJames\43.STL\43.STL\main.cpp(54,14): warning C4834: 'nodiscard' 특성이 포함된 함수의 반환 값을 버리는 중
+  43.STL.vcxproj -> D:\c++Study\C_StudyJames\43.STL\Debug\43.STL.exe
