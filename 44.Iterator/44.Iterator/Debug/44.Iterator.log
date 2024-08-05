@@ -1,2 +1,5 @@
-﻿  mani.cpp
-  44.Iterator.vcxproj -> D:\c++Study\C_StudyJames\44.Iterator\Debug\44.Iterator.exe
+﻿  main.cpp
+D:\c++Study\C_StudyJames\44.Iterator\44.Iterator\CArray.h(99,20): error C2143: 구문 오류: ';'이(가) '++' 앞에 없습니다.
+D:\c++Study\C_StudyJames\44.Iterator\44.Iterator\CArray.h(106): message : 컴파일되는 클래스 템플릿 인스턴스화 'CArray<T>::iterator'에 대한 참조를 확인하세요.
+D:\c++Study\C_StudyJames\44.Iterator\44.Iterator\CArray.h(111): message : 컴파일되는 클래스 템플릿 인스턴스화 'CArray<T>'에 대한 참조를 확인하세요.
+D:\c++Study\C_StudyJames\44.Iterator\44.Iterator\CArray.h(100,1): error C2334: '{' 앞에 예기치 않은 토큰이 있습니다. 명백한 함수 본문을 건너뜁니다.
