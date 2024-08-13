@@ -3,6 +3,36 @@
 #include <list>
 #include "CArray.h"
 
+class Test
+{
+public:
+	int m_iNum;
+
+public:
+	Test& operator =(const Test& _other)
+	{
+		m_iNum = _other.m_iNum;
+
+		return *this;
+	}
+
+public:
+	//생성자를 하나라도 만들었다면 기본생성자를 호출하지 않는다
+	Test() :
+		m_iNum(0)
+	{
+
+	}
+
+	//복사생성자
+	Test(const Test& _other):
+		m_iNum(_other.m_iNum)
+	{
+		
+	}
+};
+
+
 int main()
 {
 	/*
@@ -102,6 +132,24 @@ int main()
 
 	CArray<int>::iterator iter = myVec.begin();
 
+	//전위 후위 연산자 
+	for (; iter != myVec.end(); ++iter)
+	{
+		std::cout << *iter << std::endl;
+	}
+
+	iter = myVec.begin();
+
+
+	
+	
+	//int iNum = *(iter++);
+	//int iNum = *(++iter);
+
+	int iNum = *(iter--);
+
+	//int iNum2 = *(iter--);
+
 	int a = 0;
 
 	//*iter
@@ -130,15 +178,18 @@ int main()
 
 	//enditerator접근 하면 문제생김
 
-	/*vecIter = vecInt.end();
+	//vecIter = vecInt.end();
 	
-	vecIter++;
-	*vecIter;*/
 
-	//*vecIter = vecInt.begin();
-	//--vecIter;
-	//*vecIter
 
+	Test t1;
+	t1.m_iNum = 100;
+
+	Test t2(t1);
+	//t1 = t2; 복사생성자를 사용하는 예시
+
+	//복사생성자  컴파일러가 알아서 바꿔줌
+	Test t3 = t1;
 
 
 

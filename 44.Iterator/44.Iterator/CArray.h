@@ -73,8 +73,9 @@ public:
 		iterator(CArray* _pArr ,T* _data, int _idx) :
 			m_pArr(_pArr),
 			m_pData(_data),
-			m_iIdx(-_idx)
+			m_iIdx(_idx)
 		{
+			
 			
 		}
 		~iterator()
@@ -98,14 +99,101 @@ public:
 
 		iterator& operator++()
 		{
+			
+
+			//2. end iterator 인경우 
+			//3.itator가 알고 있는 주소와 가변배열의 주소가 다를경우
+			if (m_pArr->m_pData != m_pData || m_iIdx == -1)
+			{
+				std::cout << "can't dereference value-initialized vector iterator" << std::endl;
+				assert(nullptr);
+			}
+
+			//1.iterator가 마지막 데이터를 가리키는 경우 
+			//end ierator가 되는경우
+			if(m_pArr->size() - 1 == m_iIdx)
+			{ 
+				m_iIdx = -1;
+			}
+			else
+			{
+				++m_iIdx;
+
+			}
+
 			return *this;
+		}
+
+		//후위++ 레퍼런스가아닌 복사를 준다 
+		iterator operator++(int)
+		{
+			//복사 생성자가 호출된거다 
+			//자동으로만들어 진거다 
+			iterator copy_iter = *this;
+
+			++(*this);
+
+			return copy_iter;
 		}
 
 		iterator& operator --()
 		{
+			//2. end iterator 인경우 
+			//3.itator가 알고 있는 주소와 가변배열의 주소가 다를경우
+			if (m_pArr->m_pData != m_pData || m_iIdx == -1)
+			{
+				std::cout << "can't dereference value-initialized vector iterator" << std::endl;
+				assert(nullptr);
+			}
+
+			//1.iterator가 마지막 데이터를 가리키는 경우 
+			//end ierator가 되는경우
+			if (0 == m_iIdx)
+			{
+				m_iIdx = -1;
+			}
+			else
+			{
+				--m_iIdx;
+
+			}
+
 			return *this;
 		}
 
+		iterator operator--(int)
+		{
+			//복사 생성자가 호출된거다 
+			//자동으로만들어 진거다 
+			iterator copy_iter = *this;
+
+			--(*this);
+
+			return copy_iter;
+		}
+
+
+		//비교연산자
+		bool operator == (const iterator& _otheriter)
+		{
+			if (m_pData == _otheriter.m_pData && m_iIdx == _otheriter.m_iIdx)
+			{
+				return true;
+			}
+			return false;
+		}
+
+		bool operator != (const iterator& _otheriter)
+		{
+			if (m_pData == _otheriter.m_pData && m_iIdx == _otheriter.m_iIdx)
+			{
+				return false;
+			}
+			return true;
+
+			//줄일수잇음
+			//return !(*this == _otheriter);
+		}
 	};
 
 };
@@ -243,6 +331,7 @@ typename CArray<T>::iterator CArray<T>::begin()
 	//iterator iter(m_pData, 0);
 	/*iter.m_pData = this->m_pData;
 	iter.m_iIdx = 0;*/
+
 
 	if (m_iCount == 0)
 	{
