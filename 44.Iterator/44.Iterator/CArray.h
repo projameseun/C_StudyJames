@@ -46,7 +46,8 @@ public:
 	class iterator; //전방선언
 	iterator begin();
 	iterator end();
-
+	//const _Iterator_base12& _Right
+	iterator erase(const iterator& _rIter );
 public:
 	//이너클래스
 	//반복자
@@ -100,7 +101,6 @@ public:
 		iterator& operator++()
 		{
 			
-
 			//2. end iterator 인경우 
 			//3.itator가 알고 있는 주소와 가변배열의 주소가 다를경우
 			if (m_pArr->m_pData != m_pData || m_iIdx == -1)
@@ -110,9 +110,9 @@ public:
 			}
 
 			//1.iterator가 마지막 데이터를 가리키는 경우 
-			//end ierator가 되는경우
-			if(m_pArr->size() - 1 == m_iIdx)
-			{ 
+		//end ierator가 되는경우
+			if (m_pArr->size() - 1 == m_iIdx)
+			{
 				m_iIdx = -1;
 			}
 			else
@@ -121,9 +121,13 @@ public:
 
 			}
 
+		
+
 			return *this;
 		}
 
+
+		//컴파일러가 후위인지 명시적으로 알기위해서 int를 꼭 넣어줘야된다.
 		//후위++ 레퍼런스가아닌 복사를 준다 
 		iterator operator++(int)
 		{
@@ -138,16 +142,8 @@ public:
 
 		iterator& operator --()
 		{
-			//2. end iterator 인경우 
-			//3.itator가 알고 있는 주소와 가변배열의 주소가 다를경우
-			if (m_pArr->m_pData != m_pData || m_iIdx == -1)
-			{
-				std::cout << "can't dereference value-initialized vector iterator" << std::endl;
-				assert(nullptr);
-			}
-
-			//1.iterator가 마지막 데이터를 가리키는 경우 
-			//end ierator가 되는경우
+			
+		
 			if (0 == m_iIdx)
 			{
 				m_iIdx = -1;
@@ -157,10 +153,26 @@ public:
 				--m_iIdx;
 
 			}
+			
+			
+			//2. end iterator 인경우 
+			//3.itator가 알고 있는 주소와 가변배열의 주소가 다를경우
+			if (m_pArr->m_pData != m_pData || m_iIdx == -1)
+			{
+				std::cout << "can't dereference value-initialized vector iterator" << std::endl;
+				assert(nullptr);
+			}
+		
+			
+
+			//1.iterator가 마지막 데이터를 가리키는 경우 
+			//end ierator가 되는경우
+			
 
 			return *this;
 		}
 
+		//컴파일러가 후위인지 명시적으로 알기위해서 int를 꼭 넣어줘야된다.
 		iterator operator--(int)
 		{
 			//복사 생성자가 호출된거다 
@@ -353,4 +365,12 @@ typename CArray<T>::iterator CArray<T>::end()
 
 }
 
+template<class T>
+typename CArray<T>::iterator CArray<T>::erase(const iterator& _rIter)
+{
 
+	return iterator();
+}
+
+
+//이너클래스사용할때

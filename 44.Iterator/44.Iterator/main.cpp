@@ -140,13 +140,17 @@ int main()
 
 	iter = myVec.begin();
 
+	++iter;
+	++iter;
+	--iter;
 
-	
+	std::cout << *(iter) << std::endl;
+
 	
 	//int iNum = *(iter++);
 	//int iNum = *(++iter);
 
-	int iNum = *(iter--);
+	//int iNum = *(iter--);
 
 	//int iNum2 = *(iter--);
 
@@ -160,16 +164,21 @@ int main()
 	
 	std::vector<int> vecInt;
 
-	vecInt.push_back(10);
+	/*vecInt.push_back(10);
 	vecInt.push_back(20);
-	vecInt.push_back(30);
-
+	vecInt.push_back(30);*/
+	
 	std::vector<int>::iterator vecIter = vecInt.begin();
 
 	for (int i = 0; i < 10; ++i)
 	{
 		vecInt.push_back(i);
 	}
+
+
+	vecIter = vecInt.begin();
+
+	vecInt.erase(vecInt.begin() + 3 );
 
 	//위에는 vecIter가 이제 가리키는곳이 이상해진다는거 디버깅을 찍어서 확인해보면 알수 있다.
 
