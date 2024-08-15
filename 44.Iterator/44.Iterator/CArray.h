@@ -47,7 +47,13 @@ public:
 	iterator begin();
 	iterator end();
 	//const _Iterator_base12& _Right
-	iterator erase(const iterator& _rIter );
+	iterator erase( iterator& _rIter );
+
+
+	void clear()
+	{
+		m_iCount = 0;
+	}
 public:
 	//이너클래스
 	//반복자
@@ -62,11 +68,13 @@ public:
 			CArray*		m_pArr;	//iterator가 가리킬 데이터를 관리하는 가변배열주소
 			T*		m_pData;	//데이터 시작주소
 			int		m_iIdx;		//가리키는 인덱스
+			bool	m_bValid		//유효
 	public:
 		iterator() :
 			m_pArr(nullptr),
 			m_pData(nullptr),
-			m_iIdx(-1)
+			m_iIdx(-1),
+			m_bValid(false)
 		{
 
 		}
@@ -74,9 +82,13 @@ public:
 		iterator(CArray* _pArr ,T* _data, int _idx) :
 			m_pArr(_pArr),
 			m_pData(_data),
-			m_iIdx(_idx)
+			m_iIdx(_idx),
+			m_bValid(false)
 		{
-			
+			if (_pArr != nullptr && _idx >= 0)
+			{
+				m_bValid = true;
+			}
 			
 		}
 		~iterator()
@@ -84,12 +96,15 @@ public:
 
 		}
 
+		friend class CArray;	
+		//이너클래스는 private를 접근할수 있는데 CArray는 iterator를 접근못한다 이럴때 프렌드 클래스를 사용해서 접근할수 있다
+		//너나랑친구 
 	public:
 		T& operator * ()
 		{
 			//비교 iterator가 알고 있는 주소와, 가변배열이 알고 있는 주소가 달라진경우(공간을 확장하고 주소가 달라질 경우)
 			//iterator end iterator일 경우
-			if (m_pArr->m_pData != m_pData || m_iIdx == -1)
+			if (m_pArr->m_pData != m_pData || m_iIdx == -1 || m_bValid == false)
 			{
 				std::cout << "can't dereference value-initialized vector iterator" << std::endl;
 				assert(nullptr);
@@ -366,10 +381,31 @@ typename CArray<T>::iterator CArray<T>::end()
 }
 
 template<class T>
-typename CArray<T>::iterator CArray<T>::erase(const iterator& _rIter)
+typename CArray<T>::iterator CArray<T>::erase(iterator& _rIter)
 {
+	//다른곳을 iter가 가르킨다면 
+	if (_rIter.m_pArr != this || end() == _rIter || m_iCount  <= _rIter.m_iIdx)
+	{
+		assert(nullptr);
+	}
 
-	return iterator();
+	//iterator가 가리키는 데이터를 배열 내에서 제거한다.
+
+	int iLoop = m_iCount - (_rIter.miIdx + 1);
+		//카운트 -1 
+
+	for (int i = 0; i < iLoop; ++i)
+	{
+		m_pData[i + _rIter.m_iIdx] = m_pData[i + _rIter.miIdx + 1];
+	}
+
+	//원본회손
+	_rIter.m_bValid = false;
+	
+	--m_iCount;
+	
+	//되돌려줄때 true
+	return iterator(this,_m_pData,_rIter.m_iIdx);
 }
 
 

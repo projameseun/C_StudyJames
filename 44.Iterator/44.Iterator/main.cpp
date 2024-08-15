@@ -164,6 +164,8 @@ int main()
 	
 	std::vector<int> vecInt;
 
+	std::vector<int> vecInt2;
+
 	/*vecInt.push_back(10);
 	vecInt.push_back(20);
 	vecInt.push_back(30);*/
@@ -175,9 +177,20 @@ int main()
 		vecInt.push_back(i);
 	}
 
+	//두개중 하나를가리킬때 문제가되는 예시
+	vecInt2.push_back(1500);
+
 
 	vecIter = vecInt.begin();
 
+	vecInt.erase(vecIter);
+
+	//에러난다 가리키는곳이 다르기 때문에
+	//int iNum = *vecIter;
+	
+	//return 이터를 바로 주면 에러안남
+	//vecIter = vecInt.erase(vecIter);
+	
 	vecInt.erase(vecInt.begin() + 3 );
 
 	//위에는 vecIter가 이제 가리키는곳이 이상해진다는거 디버깅을 찍어서 확인해보면 알수 있다.
