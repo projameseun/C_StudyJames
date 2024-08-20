@@ -158,27 +158,16 @@ public:
 		iterator& operator --()
 		{
 			
-		
-			if (0 == m_iIdx)
-			{
-				m_iIdx = -1;
-			}
-			else
-			{
-				--m_iIdx;
-
-			}
-			
 			
 			//2. end iterator 인경우 
 			//3.itator가 알고 있는 주소와 가변배열의 주소가 다를경우
-			if (m_pArr->m_pData != m_pData || m_iIdx == -1)
+			if (m_pData != m_pArr->m_pData || m_iIdx == -1 || m_iIdx == 0)
 			{
 				std::cout << "can't dereference value-initialized vector iterator" << std::endl;
 				assert(nullptr);
 			}
 		
-			
+			--m_iIdx;
 
 			//1.iterator가 마지막 데이터를 가리키는 경우 
 			//end ierator가 되는경우
