@@ -1,0 +1,3 @@
+﻿  main.cpp
+D:\c++Study\C_StudyJames\46.Tree\46.Tree\main.cpp(46,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  46.Tree.vcxproj -> D:\c++Study\C_StudyJames\46.Tree\Debug\46.Tree.exe
