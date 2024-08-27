@@ -282,39 +282,44 @@ void CArray<T>::resize(int _Size)
 template<class T>
 void CArray<T>::Delete(int _Num)
 {
-
+	//이방식은 좋지 않다 그러므로 데이터를 옆으로 옮기는 방식으로만 
 	if (_Num < 0 || _Num >= m_iCount)
 	{
 		throw std::out_of_range("Index out of range");
 	}
 
-	T* pTemp = new T[m_iCount - 1];
-
-	int k = 0;
-
-	//데이터들을 새로 할당한공간으로 복사한다
-	for (int i = 0; i < m_iCount; ++i)
+	for (int i = _Num; i < size() - 1; ++i)
 	{
-		if (i == _Num)continue;
-		pTemp[k++] = m_pData[i];
-
-
-
+		m_pData[i] = m_pData[i + 1];
 	}
 
+	//T* pTemp = new T[m_iCount - 1];
+
+	//int k = 0;
+
+	////데이터들을 새로 할당한공간으로 복사한다
+	//for (int i = 0; i < m_iCount; ++i)
+	//{
+	//	if (i == _Num)continue;
+	//	pTemp[k++] = m_pData[i];
 
 
-	if (m_pData != nullptr)
-	{
-		delete[] m_pData;
+
+	//}
 
 
-	}
 
-	m_pData = pTemp;
+	//if (m_pData != nullptr)
+	//{
+	//	delete[] m_pData;
+
+
+	//}
+
+	//m_pData = pTemp;
 	m_iCount--;
 
-	m_iMaxCount = m_iCount;
+	//m_iMaxCount = m_iCount;
 
 	int a = 0;
 
