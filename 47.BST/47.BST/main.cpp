@@ -3,6 +3,8 @@
 #include <set>
 #include <string>
 
+#include "CBST.h"
+
 enum class Gender
 {
 	MAN = 1,
@@ -119,7 +121,7 @@ int main()
 	mapData.insert(std::make_pair(L"이무열", info));
 	mapData.insert(std::make_pair(L"김지혜", info2));
 
-	//이터를 반환해줌
+	
 
 	std::map<const wchar_t*, FStdInfo>::iterator  mapiter;
 
@@ -129,6 +131,7 @@ int main()
 	  
 	const wchar_t* pStr = L"이무열"; //이친구는 주소가 같은거다 
 
+	//이터를 반환해줌
 	mapiter = mapData.find(szFind);
 
 	//지역설정
@@ -220,17 +223,17 @@ int main()
 
 	if (str == str2)
 	{
-		return true;
+		std::cout << "서로 문자열이 같습니다" << std::endl;
 	}
 	else
 	{
-		return false;
+		std::cout << "서로 문자열이 다릅니다" << std::endl;
 	}
 
 	//> < >= <=  다됨 
 
 
-	
+	//내가만든 클래스
 	std::map<MyClass, FStdInfo> MyMap;
 
 	MyClass a;
@@ -238,7 +241,27 @@ int main()
 	//처음에 MYClass를 할때 사용을할수 없는데 operator가 없어서 그렇다 
 	MyMap.insert(std::make_pair(a, info));
 
+	system("cls");
 
+	//우리가 만든 이진탐색트리
+	
+	CBST<int, int> BstInt;
+
+	FPair<int, int> pair;
+
+	pair.first = 50;
+
+	BstInt.insert(pair);
+
+	pair.first = 100;
+
+	BstInt.insert(pair);
+
+	pair.first = 150;
+
+	BstInt.insert(pair);
+
+	int testt = 0;
 
 	return 0;
 }

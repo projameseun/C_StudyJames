@@ -1,2 +1,3 @@
 ﻿  main.cpp
-  47.BST.vcxproj -> D:\c++Study\C_StudyJames\47.BST\Debug\47.BST.exe
+D:\c++Study\C_StudyJames\47.BST\47.BST\CBST.h(39,3): error C3861: 'ArrNodeP': 식별자를 찾을 수 없습니다.
+D:\c++Study\C_StudyJames\47.BST\47.BST\CBST.h(43): message : 컴파일되는 클래스 템플릿 인스턴스화 'FBSTNode<T1,T2>'에 대한 참조를 확인하세요.

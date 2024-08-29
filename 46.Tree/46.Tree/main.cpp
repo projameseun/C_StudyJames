@@ -32,21 +32,59 @@ public:
 	int GetLeft(int _idx)
 	{
 		int leftIdx = 2 * _idx + 1;
-		return leftIdx;
+		return leftIdx < m_tree.size() ? leftIdx : -1;
 	}
 
 	int GetRight(int _idx)
 	{
 		int rightIdx = 2 * _idx + 2;
 
-		return rightIdx;
+		return rightIdx < m_tree.size() ? rightIdx : -1;
 	}
 
 	void TreePrint()
 	{
+		//각 노드 부모 확인
 		for (int i = 0; i < m_tree.size(); ++i)
 		{
-			std::cout << m_tree[i] << std::endl;
+			std::cout << "노드 인덱스 : " << i << ", 값 : " << m_tree[i];
+
+			int pIdx = GetParent(i);
+
+			if (pIdx != -1)
+			{
+				std::cout << ",  부모 값 : " << m_tree[pIdx];
+			}
+			else
+			{
+				std::cout << " , 부모 값 : 없음 (루트노드) ";
+			}
+
+			int leftIdx = GetLeft(i);
+			if (leftIdx != -1)
+			{
+				std::cout << ", 왼쪽 자식 값: " << m_tree[leftIdx];
+			}
+			else
+			{
+				std::cout << ", 왼쪽 자식 값: 없음";
+			}
+
+			
+
+			int rightIdx = GetRight(i);
+			if (rightIdx != -1)
+			{
+				std::cout << ", 오른쪽 자식 값: " << m_tree[rightIdx];
+			}
+			else
+			{
+				std::cout << ", 오른쪽 자식 값: 없음";
+			}
+			
+
+			std::cout << std::endl;
+
 		}
 	}
 
@@ -163,6 +201,10 @@ public:
 
 	역으로 부모인덱스는 ===> 자식 인덱스 -1 / 부모인덱스 하면된다 
 
+
+	포화 이진트리 모든 레벨이 노드로 꽉 차있는 트리이다 자식이 2개로 무조건
+	완전 이진트리란 모든레벨에서 노드가 가득 차있고 ,마지막 레벨에서는 노드가 왼쪽 부터 채워지는 이진트리를 말한다.
+
 	=============================================================
 	우리가 진짜해야될거 ... 이진탐색트리
 	BST ( Binary Search Tree)
@@ -202,6 +244,14 @@ public:
 	해당 노드보다 값이 큰 노드들 중에서 가장 값이 작은노드
 	6.노드의 선임자(predescssor)
 	해당 노드보다 값이 작은 노드들 중에서 가장 값이 큰노드
+
+
+	//빅오	입력			탐색
+	vector	O(1)		O(N)
+	list	O(1)		O(N)
+	bst		0(logN)		O(logN)
+
+	O(1) > O(logN) > O(N)
 
 	데이터가 n개라고 할때  로그 2의 n이다 
 
@@ -245,6 +295,8 @@ public:
 	 이진탐색트리는 그래서 삼각형처럼 밸런스가 잡혀잇어야
 	 한쪽을 우리가 찾았을때 반을 나눌수 있다.
 
+	 이진탐색트리 사이트 보여주기!!!
+
 	 그래서 우리는 이진탐색트리를 사용할때 자가균형(Self Balanced)을 같이 사용한다
 
 	 대표적인게 AVL,Red-Black 레드블랙이진트리사이트보여주고 자가균형 
@@ -265,29 +317,18 @@ int main()
 
 	}
 
+
+	/*tree.NodeInsert(10);
+	tree.NodeInsert(20);
+	tree.NodeInsert(30);
+	tree.NodeInsert(40);
+	tree.NodeInsert(50);
+	tree.NodeInsert(60);
+	tree.NodeInsert(70);*/
+
 	tree.TreePrint();
 
-	//각 노드 부모 확인
-	for (int i = 0; i < tree.GetSize(); ++i)
-	{
-		int ileft = tree.GetLeft(i);
-		int iRight = tree.GetRight(i);
-
-		std::cout << "Node : " << i << " Left : ";
-
-		if (ileft != -1)
-		{
-			std::cout << ileft;
-		}
-		std::cout << " Right : ";
-		if (iRight != -1)
-		{
-			std::cout << iRight;
-		}
-
-		std::cout << std::endl;
-		
-	} 
+	
 
 
 	
