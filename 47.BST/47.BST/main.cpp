@@ -247,9 +247,9 @@ int main()
 	
 	CBST<int, int> BstInt;
 
-	FPair<int, int> pair;
+	//FPair<int, int> pair;
 
-	pair.first = 50;
+	/*pair.first = 50;
 
 	BstInt.insert(pair);
 
@@ -259,7 +259,18 @@ int main()
 
 	pair.first = 150;
 
-	BstInt.insert(pair);
+	BstInt.insert(pair);*/
+	
+	BstInt.insert(make_mypair(100, 0));
+	BstInt.insert(make_mypair(50, 0));
+	BstInt.insert(make_mypair(200, 0));
+	BstInt.insert(make_mypair(300, 0));
+
+	CBST<int, int>::iterator iter = BstInt.begin();
+
+	iter = BstInt.find(200);
+
+
 
 	int testt = 0;
 
