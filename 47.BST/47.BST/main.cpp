@@ -263,6 +263,8 @@ int main()
 	
 	BstInt.insert(make_mypair(100, 0));
 	BstInt.insert(make_mypair(50, 0));
+	BstInt.insert(make_mypair(25, 0));
+	BstInt.insert(make_mypair(30, 0));
 	BstInt.insert(make_mypair(200, 0));
 	BstInt.insert(make_mypair(300, 0));
 
@@ -270,7 +272,18 @@ int main()
 
 	iter = BstInt.find(200);
 
+	iter = BstInt.begin();
+	++iter;
+	++iter;
 
+	--iter;
+
+	for (iter = BstInt.begin(); iter != BstInt.end(); ++iter)
+	{
+		std::cout << iter->first << std::endl;
+	}
+
+	
 
 	int testt = 0;
 

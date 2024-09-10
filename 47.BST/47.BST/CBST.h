@@ -1,4 +1,5 @@
 #pragma once
+#include <assert.h>
 
 enum class NODE_TYPE
 {
@@ -35,6 +36,34 @@ struct FBSTNode
 	//FBSTNode*			pRightChild;		//오른쪽자식 노드
 
 public:
+	bool IsRoot()
+	{
+		if (nullptr == ArrNode[(int)NODE_TYPE::PARENT])
+		{
+			return true;
+		}
+		return false;
+	}
+
+	bool IsLeftChild()
+	{
+		if (ArrNode[(int)NODE_TYPE::PARENT]->ArrNode[(int)NODE_TYPE::LCHILD] == this)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	bool IsRightChild()
+	{
+		if (ArrNode[(int)NODE_TYPE::PARENT]->ArrNode[(int)NODE_TYPE::RCHILD] == this)
+		{
+			return true;
+		}
+		return false;
+	}
+
+public:
 	FBSTNode():
 		pair(),
 		ArrNode{}
@@ -57,6 +86,8 @@ private:
 	FBSTNode<T1,T2>*	m_pRoot;		//root
 	int					m_iCount;		//데이터개수
 
+
+
 public:
 	CBST() :
 		m_pRoot(nullptr),
@@ -67,6 +98,11 @@ public:
 
 public:
 	bool insert(const FPair<T1,T2>& _pair);
+	FBSTNode<T1, T2>* GetInOrderSuccessor(FBSTNode<T1,T2>* _pNode);
+	FBSTNode<T1, T2>* GetInOrderPredecessor(FBSTNode<T1, T2>* _pNode);
+	
+	FBSTNode<T1, T2>* GetParent(FBSTNode<T1, T2>* _pNode);
+
 
 	class iterator;
 public:
@@ -80,6 +116,58 @@ public:
 	private:
 		CBST<T1, T2>*		m_pBST;		//bst본체를 알고잇기 
 		FBSTNode<T1, T2>*	m_pNode;	///특정 노드를 알기 
+
+			//이터레이터 비교연산자
+	public:
+		bool operator == (const iterator& _other)
+		{
+			if (m_pBST == _other.m_pBST && m_pNode == _other.m_pNode)
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		bool operator != (const iterator& _other)
+		{
+			return !(*this == _other);
+		}
+
+		const FPair<T1, T2>& operator*()
+		{
+			//end iteartor 체크
+			assert(m_pNode);
+
+			return m_pNode->pair;
+		}
+
+		const FPair<T1, T2>* operator->()
+		{
+			//end iteartor 체크
+			assert(m_pNode);
+
+			return &m_pNode->pair;
+		}
+
+		//++ 중위순회 
+		iterator& operator ++()
+		{
+			//중위후속자를 찾는다
+			//m_pBST->GetInorderSuccessor(m_pNode);
+			m_pNode = m_pBST->GetInOrderSuccessor(m_pNode);
+			return *this;
+		}
+
+		//++ 중위순회 
+		iterator& operator --()
+		{
+			//중위후속자를 찾는다
+			//m_pBST->GetInorderSuccessor(m_pNode);
+			m_pNode = m_pBST->GetInOrderPredecessor(m_pNode);
+			return *this;
+		}
+
 
 	public:
 		iterator() :
@@ -224,6 +312,121 @@ template<typename T1, typename T2>
 	++m_iCount;
 	return true;
 }
+
+//중위 후속자
+template<typename T1, typename T2>
+ FBSTNode<T1, T2>* CBST<T1, T2>::GetInOrderSuccessor(FBSTNode<T1, T2>* _pNode)
+{
+		FBSTNode<T1, T2>* pSuccesor = nullptr;
+	
+		//1.오른쪽 자식이 있는 경우 오른쪽 자식으로가서, 왼쪽 자식이 없을때 까지 내려감 
+	 if (_pNode->ArrNode[(int)NODE_TYPE::RCHILD] != nullptr)
+	 {
+		 pSuccesor = _pNode->ArrNode[(int)NODE_TYPE::RCHILD];
+		 
+		 while (pSuccesor->ArrNode[(int)NODE_TYPE::LCHILD])
+		 {
+			 pSuccesor =  pSuccesor->ArrNode[(int)NODE_TYPE::LCHILD];
+		 }
+	 }
+
+	 //2.오른쪽 자식이 없으면 부모로 부터 왼쪽 자식 일때 까지 위로 올라감 
+	 //그때 부모가 후속자 
+	 else
+	 {
+		 pSuccesor = _pNode;
+
+		 while (pSuccesor != nullptr)	//true를 하지않는이유 무한루프를돌수잇는걸 방지하기 위해서
+		 {
+			 
+			 if (pSuccesor->IsRoot())
+			 {
+				 return nullptr;
+			 }
+			 else
+			 {
+				 // 현재 노드가 부모의 왼쪽 자식인 경우 부모가 후속자
+				 if (pSuccesor->IsLeftChild())
+				 {
+					 //부모후속자
+					 pSuccesor = GetParent(pSuccesor);
+					 break;
+				 }
+				 else
+				 {
+					 // 오른쪽 자식인 경우, 부모로 계속 올라감
+					 pSuccesor = GetParent(pSuccesor);
+				 }
+			 }
+		 }
+
+		
+
+		
+	 }
+
+	return pSuccesor;
+}
+
+ //중위 선행자
+ template<typename T1, typename T2>
+ inline FBSTNode<T1, T2>* CBST<T1, T2>::GetInOrderPredecessor(FBSTNode<T1, T2>* _pNode)
+ {
+	 FBSTNode<T1, T2>* pPredecessor = nullptr;
+
+	 //1.왼쪽 자식이 있는 경우 왼쪽 자식으로가서, 오른쪽 자식이 없을때 까지 내려감 
+	 if (_pNode->ArrNode[(int)NODE_TYPE::LCHILD] != nullptr)
+	 {
+		 pPredecessor = _pNode->ArrNode[(int)NODE_TYPE::LCHILD];
+
+		 while (pPredecessor->ArrNode[(int)NODE_TYPE::RCHILD])
+		 {
+			 pPredecessor = pPredecessor->ArrNode[(int)NODE_TYPE::RCHILD];
+		 }
+	 }
+
+	 //2.왼쪽 자식이 없으면 부모로 부터 오른쪽 자식 일때 까지 위로 올라감 
+	 //그때 부모가 선행자 
+	 else
+	 {
+		 pPredecessor = _pNode;
+
+		 while (pPredecessor != nullptr)
+		 {
+
+			 if (pPredecessor->IsRoot())
+			 {
+				 return nullptr;
+			 }
+			 else
+			 {
+				 //왼쪽인지 체크
+				 if (pPredecessor->IsRightChild())
+				 {
+					 //부모선행자
+					 pPredecessor = GetParent(pPredecessor);
+					 break;
+				 }
+				 else
+				 {
+					 pPredecessor = GetParent(pPredecessor);
+				 }
+			 }
+		 }
+
+
+
+
+	 }
+
+	 return pPredecessor;
+ }
+
+ template<typename T1, typename T2>
+ inline FBSTNode<T1, T2>* CBST<T1, T2>::GetParent(FBSTNode<T1, T2>* _pNode)
+ {
+	 return _pNode->ArrNode[(int)NODE_TYPE::PARENT];;
+ }
 
 //반환타입이 본인 타입 이너클래스면 typename 적어줘야됨
 template<typename T1, typename T2>
