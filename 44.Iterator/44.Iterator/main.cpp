@@ -141,10 +141,13 @@ int main()
 	iter = myVec.begin();
 
 	++iter;
-	++iter;
-	--iter;
 
-	std::cout << *(iter) << std::endl;
+	for (iter = myVec.begin(); iter != myVec.end(); ++iter)
+	{
+		std::cout << *(iter) << std::endl;
+	}
+
+	
 
 	
 	//int iNum = *(iter++);

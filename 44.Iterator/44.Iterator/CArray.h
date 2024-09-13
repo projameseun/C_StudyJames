@@ -6,7 +6,7 @@ template<class T>
 class CArray
 {
 private:
-	T* m_pData;
+	T*		m_pData;
 	int		m_iCount;
 	int		m_iMaxCount;
 
@@ -68,7 +68,7 @@ public:
 			CArray*		m_pArr;	//iterator가 가리킬 데이터를 관리하는 가변배열주소
 			T*		m_pData;	//데이터 시작주소
 			int		m_iIdx;		//가리키는 인덱스
-			bool	m_bValid		//유효
+			bool	m_bValid;		//유효
 	public:
 		iterator() :
 			m_pArr(nullptr),
@@ -399,7 +399,7 @@ typename CArray<T>::iterator CArray<T>::erase(iterator& _rIter)
 	--m_iCount;
 	
 	//되돌려줄때 true
-	return iterator(this,_m_pData,_rIter.m_iIdx);
+	return iterator(this, m_pData,_rIter.m_iIdx);
 }
 
 

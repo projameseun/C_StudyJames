@@ -261,29 +261,44 @@ int main()
 
 	BstInt.insert(pair);*/
 	
-	BstInt.insert(make_mypair(100, 0));
-	BstInt.insert(make_mypair(50, 0));
-	BstInt.insert(make_mypair(25, 0));
-	BstInt.insert(make_mypair(30, 0));
+	BstInt.insert(make_mypair(100, 0));  //                             100
+	BstInt.insert(make_mypair(50, 0));  //                       50         300
+	BstInt.insert(make_mypair(25, 0)); //                     25   60     150   300
+	BstInt.insert(make_mypair(60, 0));
 	BstInt.insert(make_mypair(200, 0));
+	BstInt.insert(make_mypair(150, 0));
 	BstInt.insert(make_mypair(300, 0));
 
 	CBST<int, int>::iterator iter = BstInt.begin();
 
-	iter = BstInt.find(200);
+	//iter = BstInt.find(200);
 
-	iter = BstInt.begin();
+	/*iter = BstInt.begin();
 	++iter;
 	++iter;
 
-	--iter;
-
-	for (iter = BstInt.begin(); iter != BstInt.end(); ++iter)
-	{
-		std::cout << iter->first << std::endl;
-	}
+	--iter;*/
 
 	
+
+	//for (iter = BstInt.begin(); iter != BstInt.end(); ++iter)
+	//{
+	//	std::cout << iter->first << std::endl;
+	//}
+
+	iter = BstInt.find(200);
+	iter = BstInt.erase(iter);
+
+	iter = BstInt.find(200);
+	iter = BstInt.erase(iter);
+
+	//이진탐색트리 삭제
+
+	//1.삭제할 노드가 단말노드의 경우
+	//2.삭제할 노드가 자식노드를 한개 가진경우 (자식이 부모로 연결해준다 )
+	//3.삭제할 노드가 2개의 자식을 가진경우 (중위 선행자 ,중위 후속자가 와야된다 중요)
+	//중위 후속자, 중위 선행자는 자식이하나거나 없는경우 밖에 없다 
+
 
 	int testt = 0;
 
