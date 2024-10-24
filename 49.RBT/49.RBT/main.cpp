@@ -37,10 +37,10 @@ int main()
 	MyInt.insert(make_mypair(200, 0));
 	
 	
-	iter2 = MyInt.begin();
-	++iter2;
+	//iter2 = MyInt.begin();
+	//++iter2;
 
-	MyInt.insert(iter2, make_mypair(500, 0));
+	//iter2 = MyInt.insert(iter2, make_mypair(500, 0));
 	
 	int b = 0;
 	
