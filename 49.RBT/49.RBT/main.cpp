@@ -22,6 +22,8 @@ int main()
 
 	iter = mapint.insert(iter, std::make_pair(400, 300));
 	
+	std::cout << (*iter).first << std::endl;
+	
 	int a = 0;
 
 	CBST<int, int> MyInt;
@@ -33,18 +35,31 @@ int main()
 
 	MyInt.insert(make_mypair(100, 0));
 	MyInt.insert(make_mypair(50, 0));
-	MyInt.insert(make_mypair(25, 0));
+	MyInt.insert(make_mypair(70, 0));
 	MyInt.insert(make_mypair(200, 0));
+	//여기서부터 문제 
+	MyInt.insert(make_mypair(10, 0));
+
+
+	
+
 	
 	
-	//iter2 = MyInt.begin();
+	iter2 = MyInt.begin();
 	//++iter2;
 
 	//iter2 = MyInt.insert(iter2, make_mypair(500, 0));
 	
 	int b = 0;
+
+	for (iter2; iter2 != MyInt.end() && iter2 != MyInt.GetNilNode(); ++iter2)
+	{
 	
+		std::cout << (*iter2).first << std::endl;
 	
+	}
+	
+	int c = 0;
 
 
 	return 0;
