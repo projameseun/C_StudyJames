@@ -33,17 +33,28 @@ int main()
 
 	
 
-	MyInt.insert(make_mypair(100, 0));
-	MyInt.insert(make_mypair(50, 0));
-	MyInt.insert(make_mypair(70, 0));
-	MyInt.insert(make_mypair(200, 0));
-	//여기서부터 문제 
-	MyInt.insert(make_mypair(10, 0));
+	MyInt.insert(make_mypair(100, 0)); //
+	MyInt.insert(make_mypair(50, 0)); //
+	MyInt.insert(make_mypair(70, 0)); //
+	MyInt.insert(make_mypair(200, 0)); //
+	MyInt.insert(make_mypair(10, 0)); //
+	MyInt.insert(make_mypair(55, 0)); //
+	MyInt.insert(make_mypair(112, 0)); //
+	
+	MyInt.insert(make_mypair(78, 0)); 
+
+
+	MyInt.insert(make_mypair(2000, 0));
+	MyInt.insert(make_mypair(80, 0));
+	MyInt.insert(make_mypair(90, 0));
+	MyInt.insert(make_mypair(670, 0));
+	MyInt.insert(make_mypair(59, 0));
+	MyInt.insert(make_mypair(77, 0));
+
 
 
 	
-
-	
+	int itest = MyInt.GetCount();
 	
 	iter2 = MyInt.begin();
 	//++iter2;
@@ -52,13 +63,16 @@ int main()
 	
 	int b = 0;
 
+	int iCount = 0;
+
 	for (iter2; iter2 != MyInt.end() && iter2 != MyInt.GetNilNode(); ++iter2)
 	{
-	
+		iCount++;
 		std::cout << (*iter2).first << std::endl;
 	
 	}
 	
+	std::cout << iCount << std::endl;
 	int c = 0;
 
 

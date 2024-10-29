@@ -430,7 +430,7 @@ bool CBST<T1, T2>::insert(const FPair<T1, T2>& _pair)
 
 
 		//RED 두개로 4번속성위반 
-		if (pNewNode->NodePosition[(int)NODE_POS::PARENT]->m_NodeColor == nodeColor)
+		if (pNewNode->NodePosition[(int)NODE_POS::PARENT]->m_NodeColor == NODE_COLOR::RED)
 		{
 			pNewNode =CASE(pNewNode);
 		}
@@ -486,12 +486,16 @@ inline typename FBSTNode<T1, T2>* CBST<T1, T2>::CASE(FBSTNode<T1, T2>* _pNewNode
 		CheckPosition = ChangeNodePos(_pNewNode, CheckPosition);
 		CheckPosition2 = ChangeNodePos(pNewNodeParent, CheckPosition2);
 
-
-		
+		if (CheckPosition == NODE_POS::START || CheckPosition2 == NODE_POS::START)
+		{
+			return _pNewNode;
+		}
+				
 
 		//CASE를돌리고 와서 다시 문제가 있는지 CASE3체크를 재귀적으로 해줘야 된다.
 
 		//부모와 삼촌이 레드인경우
+		// 부모와 삼춘을 black로 변경하고 할아버지를 red로변경하고 할아버지에서 반드시 확인한다 
 		//CASE 1 
 		if (pNewNodeParent->m_NodeColor == NODE_COLOR::RED && pNewUncle->m_NodeColor == NODE_COLOR::RED)
 		{
@@ -517,14 +521,13 @@ inline typename FBSTNode<T1, T2>* CBST<T1, T2>::CASE(FBSTNode<T1, T2>* _pNewNode
 		{
 
 			CASETWO(_pNewNode, CheckPosition);
-			//회전
+			//부모를 기준으로 해당방향으로 회전을 한다 
 			iCase = 2;
 			_pNewNode = Rotation(_pNewNode, CheckPosition2, iCase);
 
 			//회전을 하였기때문에 방향도 변경이 되었을거다 그러기 때문에 
 			// Post를 다시 체크 
-			CheckPosition = ChangeNodePos(_pNewNode, CheckPosition);
-			CheckPosition2 = ChangeNodePos(pNewNodeParent, CheckPosition2);
+		
 			//무조건 회전하고 3번으로 변경해줘야된다.
 
 		
@@ -549,7 +552,7 @@ inline typename FBSTNode<T1, T2>* CBST<T1, T2>::CASE(FBSTNode<T1, T2>* _pNewNode
 				CheckPosition2 = NODE_POS::LCHILD;
 			}
 
-			if (CheckPosition2 != NODE_POS::RCHILD)
+			else
 			{
 				CheckPosition2 = NODE_POS::RCHILD;
 
@@ -563,10 +566,6 @@ inline typename FBSTNode<T1, T2>* CBST<T1, T2>::CASE(FBSTNode<T1, T2>* _pNewNode
 		
 	
 	
-
-	
-		
-
 
 
 
@@ -647,6 +646,7 @@ template<typename T1, typename T2>
 	FBSTNode<T1, T2>* pNewNodeParent = pNewNodeParent = GetParent(_pNewNode);
 
 	 FBSTNode<T1, T2>* TempNode = nullptr;
+	 FBSTNode<T1, T2>* PosTempNode = nullptr;
 	 if (pNewNodeParent == nullptr || pNewNodeGradParent == nullptr)
 	 {
 		 return _pNewNode;
@@ -670,6 +670,9 @@ template<typename T1, typename T2>
 			
 				
 			 TempNode = pNewNodeParent;
+			 PosTempNode = _pNewNode->NodePosition[(int)NODE_POS::RCHILD];
+
+
 			 pNewNodeParent = _pNewNode;
 			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = TempNode->NodePosition[(int)::NODE_POS::PARENT];
 			 pNewNodeParent->NodePosition[(int)NODE_POS::LCHILD] = TempNode;
@@ -677,7 +680,10 @@ template<typename T1, typename T2>
 
 			 TempNode->NodePosition[(int)::NODE_POS::PARENT] = pNewNodeParent;
 			
-			 TempNode->NodePosition[(int)::NODE_POS::RCHILD] = m_pNil;
+
+			TempNode->NodePosition[(int)::NODE_POS::RCHILD] = PosTempNode;
+			PosTempNode->NodePosition[(int)::NODE_POS::PARENT] = TempNode;
+			
 
 			 pNewNodeGradParent->NodePosition[(int)::NODE_POS::LCHILD] = _pNewNode;
 
@@ -687,13 +693,21 @@ template<typename T1, typename T2>
 		 else
 		 {
 			 TempNode = pNewNodeParent;
+			 PosTempNode = _pNewNode->NodePosition[(int)NODE_POS::RCHILD];
+
 			 pNewNodeParent = _pNewNode;
 			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = TempNode->NodePosition[(int)::NODE_POS::PARENT];
 			 pNewNodeParent->NodePosition[(int)NODE_POS::RCHILD] = TempNode;
 			 pNewNodeGradParent->NodePosition[(int)::NODE_POS::RCHILD] = pNewNodeParent;
 
 			 TempNode->NodePosition[(int)::NODE_POS::PARENT] = pNewNodeParent;
-			 TempNode->NodePosition[(int)::NODE_POS::LCHILD] = m_pNil;
+		
+			TempNode->NodePosition[(int)::NODE_POS::LCHILD] = PosTempNode;
+			PosTempNode->NodePosition[(int)::NODE_POS::PARENT] = TempNode;
+			
+			
+		
+
 
 			 pNewNodeGradParent->NodePosition[(int)::NODE_POS::RCHILD] = _pNewNode;
 
@@ -704,16 +718,20 @@ template<typename T1, typename T2>
 
 		 FBSTNode<T1, T2>* pChangeParent = nullptr;
 
+		
+
 		 //할아버지 기준으로 회전한다.
 		 if (_pos == NODE_POS::LCHILD)
 		 {
 			 
 			
 
-
+			 //70
 			 TempNode = pNewNodeGradParent;
+							//80
+			PosTempNode = pNewNodeParent->NodePosition[(int)NODE_POS::LCHILD];
 
-			  pChangeParent  = GetParent(TempNode->NodePosition[(int)NODE_POS::PARENT]);
+			  pChangeParent  = GetParent(TempNode);
 			 if (pNewNodeGradParent == m_pRoot)
 			 {
 				 m_pRoot = pNewNodeParent;
@@ -722,7 +740,7 @@ template<typename T1, typename T2>
 			 pNewNodeGradParent = pNewNodeParent;
 			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = TempNode->NodePosition[(int)NODE_POS::PARENT];
 
-			 CheckPosition = ChangeNodePos(pNewNodeGradParent, CheckPosition);
+			 CheckPosition = ChangeNodePos(TempNode, CheckPosition);
 		
 			 if (CheckPosition != NODE_POS::START)
 			 {
@@ -732,7 +750,13 @@ template<typename T1, typename T2>
 			 pNewNodeGradParent->NodePosition[(int)NODE_POS::LCHILD] = TempNode;
 
 			 TempNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeParent;
-			 TempNode->NodePosition[(int)NODE_POS::RCHILD] = m_pNil;
+			 
+			 TempNode->NodePosition[(int)::NODE_POS::RCHILD] = PosTempNode;
+			 PosTempNode->NodePosition[(int)::NODE_POS::PARENT] = TempNode;
+
+
+		
+
 
 
 		 }
@@ -740,7 +764,9 @@ template<typename T1, typename T2>
 		 else
 		 {
 			 TempNode = pNewNodeGradParent;
-			 pChangeParent = GetParent(TempNode->NodePosition[(int)NODE_POS::PARENT]);
+			 PosTempNode = pNewNodeParent->NodePosition[(int)NODE_POS::RCHILD];
+
+			 pChangeParent = GetParent(TempNode);
 
 			 if (pNewNodeGradParent == m_pRoot)
 			 {
@@ -749,7 +775,7 @@ template<typename T1, typename T2>
 			 pNewNodeGradParent = pNewNodeParent;
 			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = TempNode->NodePosition[(int)NODE_POS::PARENT];
 
-			 CheckPosition = ChangeNodePos(pNewNodeGradParent, CheckPosition);
+			 CheckPosition = ChangeNodePos(TempNode, CheckPosition);
 
 			 if (CheckPosition != NODE_POS::START)
 			 {
@@ -762,7 +788,11 @@ template<typename T1, typename T2>
 			 pNewNodeGradParent->NodePosition[(int)NODE_POS::RCHILD] = TempNode;
 
 			 TempNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeParent;
-			 TempNode->NodePosition[(int)NODE_POS::LCHILD] = m_pNil;
+			 TempNode->NodePosition[(int)::NODE_POS::LCHILD] = m_pNil;
+			 
+
+			 TempNode->NodePosition[(int)::NODE_POS::LCHILD] = PosTempNode;
+			 PosTempNode->NodePosition[(int)::NODE_POS::PARENT] = TempNode;
 		 }
 	 }
 	 else
