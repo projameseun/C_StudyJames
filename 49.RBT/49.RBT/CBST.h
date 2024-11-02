@@ -191,6 +191,7 @@ public:
 	FBSTNode<T1, T2>* GetParent(FBSTNode<T1, T2>* _pNode);
 	FBSTNode<T1, T2>* GetGrandParent(FBSTNode<T1, T2>* _pNode);
 	FBSTNode<T1, T2>* GetUncle(FBSTNode<T1, T2>* _pNode);
+	FBSTNode<T1, T2>* GetSibling(FBSTNode<T1, T2>* _pNode);
 
 	NODE_POS ChangeNodePos(FBSTNode<T1, T2>* _pNode,NODE_POS _pos);
 	
@@ -466,9 +467,9 @@ inline typename FBSTNode<T1, T2>* CBST<T1, T2>::CASE(FBSTNode<T1, T2>* _pNewNode
 
 		FBSTNode<T1, T2>* TempNode = nullptr;
 
-		FBSTNode<T1, T2>* pNewNodeGradParent = pNewNodeGradParent = GetGrandParent(_pNewNode);
-		FBSTNode<T1, T2>* pNewUncle = pNewUncle = GetUncle(_pNewNode);
-		FBSTNode<T1, T2>* pNewNodeParent = pNewNodeParent = GetParent(_pNewNode);
+		FBSTNode<T1, T2>* pNewNodeGradParent =  GetGrandParent(_pNewNode);
+		FBSTNode<T1, T2>* pNewUncle =GetUncle(_pNewNode);
+		FBSTNode<T1, T2>* pNewNodeParent = GetParent(_pNewNode);
 
 		//단반향 역방향 체크포지션
 		NODE_POS CheckPosition = NODE_POS::START;
@@ -640,168 +641,138 @@ template<typename T1, typename T2>
 	 //어떤 케이스에 따라 회전이 조금 달라진다
 	 //CASE1
 
+	 FBSTNode<T1, T2>* pNewNodeParent = GetParent(_pNewNode);
+	 FBSTNode<T1, T2>* pNewNodeGradParent = GetGrandParent(_pNewNode);
+	 FBSTNode<T1, T2>* pNewUncle = GetUncle(_pNewNode);
+	 //FBSTNode<T1, T2>* pNewSibling = GetSibling(_pNewNode);
 
-	FBSTNode<T1, T2>* pNewNodeGradParent = pNewNodeGradParent = GetGrandParent(_pNewNode);
-	FBSTNode<T1, T2>* pNewUncle = pNewUncle = GetUncle(_pNewNode);
-	FBSTNode<T1, T2>* pNewNodeParent = pNewNodeParent = GetParent(_pNewNode);
+	 //할아버지의 할아버지 조상
+	 FBSTNode<T1, T2>* pNewGGParent = GetParent(pNewNodeGradParent);
 
-	 FBSTNode<T1, T2>* TempNode = nullptr;
-	 FBSTNode<T1, T2>* PosTempNode = nullptr;
-	 if (pNewNodeParent == nullptr || pNewNodeGradParent == nullptr)
+	 NODE_POS CheckPosition = NODE_POS::START;
+
+	 //원래 있었던 노드에서 짤려서 새로운 노드에 자식이 입히는 노드
+	 FBSTNode<T1, T2>* pNewChildNode = nullptr;
+
+
+	 if (pNewNodeParent == nullptr || pNewNodeGradParent == nullptr ||  pNewGGParent == nullptr)
 	 {
 		 return _pNewNode;
 	 }
 
-	 NODE_POS CheckPosition = NODE_POS::START;
-
 
 	
 
-	
 	 if (_iNumer == 2)
 	 {
-	
-			   //1.부모를 저장할 임시노드
-			   //2.부모의 반대 방향노드가 부모가된다.
-			   //3.새로운 부모의 남는 포지션쪽에 예전부모를 연결시켜준다.
-		 //부모가 왼쪽
+
+		 //회전을 부모기준으로 오른쪽으로 할지 왼쪽으로 할지를 정해줘야 된다.
+
+		 //1.부모를 tmep저장
+		 //2.부모자리에 자식이 들어간다
+		 //3.형제 자리에 부모가 간다.
+
+		 //부모의 자식이 왼쪽
 		 if (_pos == NODE_POS::LCHILD)
 		 {
-			
-				
-			 TempNode = pNewNodeParent;
-			 PosTempNode = _pNewNode->NodePosition[(int)NODE_POS::RCHILD];
 
 
-			 pNewNodeParent = _pNewNode;
-			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = TempNode->NodePosition[(int)::NODE_POS::PARENT];
-			 pNewNodeParent->NodePosition[(int)NODE_POS::LCHILD] = TempNode;
-			 pNewNodeGradParent->NodePosition[(int)::NODE_POS::LCHILD] = pNewNodeParent;
+			 pNewChildNode = _pNewNode->NodePosition[(int)NODE_POS::LCHILD];
 
-			 TempNode->NodePosition[(int)::NODE_POS::PARENT] = pNewNodeParent;
-			
-
-			TempNode->NodePosition[(int)::NODE_POS::RCHILD] = PosTempNode;
-			PosTempNode->NodePosition[(int)::NODE_POS::PARENT] = TempNode;
-			
+			 _pNewNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeGradParent;
+			 _pNewNode->NodePosition[(int)NODE_POS::LCHILD] = pNewNodeParent;
 
 			 pNewNodeGradParent->NodePosition[(int)::NODE_POS::LCHILD] = _pNewNode;
+			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = _pNewNode;
 
-				
+			 pNewNodeParent->NodePosition[(int)::NODE_POS::RCHILD] = pNewChildNode;
+			 pNewChildNode->NodePosition[(int)::NODE_POS::PARENT] = pNewNodeParent;
+
+
+
+
+
+
+
+
 		 }
-		 //부모가 오른쪽
-		 else
+		 //부모의 자식이 오른쪽
+		 else if (_pos == NODE_POS::RCHILD)
 		 {
-			 TempNode = pNewNodeParent;
-			 PosTempNode = _pNewNode->NodePosition[(int)NODE_POS::RCHILD];
+			 pNewChildNode = _pNewNode->NodePosition[(int)NODE_POS::RCHILD];
 
-			 pNewNodeParent = _pNewNode;
-			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = TempNode->NodePosition[(int)::NODE_POS::PARENT];
-			 pNewNodeParent->NodePosition[(int)NODE_POS::RCHILD] = TempNode;
-			 pNewNodeGradParent->NodePosition[(int)::NODE_POS::RCHILD] = pNewNodeParent;
-
-			 TempNode->NodePosition[(int)::NODE_POS::PARENT] = pNewNodeParent;
-		
-			TempNode->NodePosition[(int)::NODE_POS::LCHILD] = PosTempNode;
-			PosTempNode->NodePosition[(int)::NODE_POS::PARENT] = TempNode;
-			
-			
-		
-
+			 _pNewNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeGradParent;
+			 _pNewNode->NodePosition[(int)NODE_POS::RCHILD] = pNewNodeParent;
 
 			 pNewNodeGradParent->NodePosition[(int)::NODE_POS::RCHILD] = _pNewNode;
+			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = _pNewNode;
 
+			 pNewNodeParent->NodePosition[(int)::NODE_POS::LCHILD] = pNewChildNode;
+			 pNewChildNode->NodePosition[(int)::NODE_POS::PARENT] = pNewNodeParent;
 		 }
+
+
+		 return pNewNodeParent;
+
 	 }
 	 else if (_iNumer == 3)
 	 {
 
-		 FBSTNode<T1, T2>* pChangeParent = nullptr;
 
-		
 
-		 //할아버지 기준으로 회전한다.
+		 if (pNewNodeGradParent == m_pRoot)
+		 {
+			 m_pRoot = pNewNodeParent;
+		 }
+
+
 		 if (_pos == NODE_POS::LCHILD)
 		 {
-			 
-			
 
-			 //70
-			 TempNode = pNewNodeGradParent;
-							//80
-			PosTempNode = pNewNodeParent->NodePosition[(int)NODE_POS::LCHILD];
-
-			  pChangeParent  = GetParent(TempNode);
-			 if (pNewNodeGradParent == m_pRoot)
-			 {
-				 m_pRoot = pNewNodeParent;
-			 }
-
-			 pNewNodeGradParent = pNewNodeParent;
-			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = TempNode->NodePosition[(int)NODE_POS::PARENT];
-
-			 CheckPosition = ChangeNodePos(TempNode, CheckPosition);
-		
-			 if (CheckPosition != NODE_POS::START)
-			 {
-				 pChangeParent->NodePosition[(int)CheckPosition] = pNewNodeParent;
-			 }
-
-			 pNewNodeGradParent->NodePosition[(int)NODE_POS::LCHILD] = TempNode;
-
-			 TempNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeParent;
-			 
-			 TempNode->NodePosition[(int)::NODE_POS::RCHILD] = PosTempNode;
-			 PosTempNode->NodePosition[(int)::NODE_POS::PARENT] = TempNode;
+			 pNewChildNode = pNewNodeParent->NodePosition[(int)NODE_POS::LCHILD];
+			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = pNewGGParent;
 
 
-		
+			 CheckPosition = ChangeNodePos(pNewNodeGradParent, CheckPosition);
 
+			 pNewGGParent->NodePosition[(int)CheckPosition] = pNewNodeParent;
+
+			 pNewNodeParent->NodePosition[(int)NODE_POS::LCHILD] = pNewNodeGradParent;
+
+
+			 pNewNodeGradParent->NodePosition[(int)NODE_POS::PARENT] = pNewNodeParent;
+
+			 pNewNodeGradParent->NodePosition[(int)NODE_POS::RCHILD] = pNewChildNode;
+			 pNewChildNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeGradParent;
 
 
 		 }
-		 //부모가 오른쪽
-		 else
+		 else if (_pos == NODE_POS::RCHILD)
 		 {
-			 TempNode = pNewNodeGradParent;
-			 PosTempNode = pNewNodeParent->NodePosition[(int)NODE_POS::RCHILD];
 
-			 pChangeParent = GetParent(TempNode);
+			 pNewChildNode = pNewNodeParent->NodePosition[(int)NODE_POS::RCHILD];
 
-			 if (pNewNodeGradParent == m_pRoot)
-			 {
-				 m_pRoot = pNewNodeParent;
-			 }
-			 pNewNodeGradParent = pNewNodeParent;
-			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = TempNode->NodePosition[(int)NODE_POS::PARENT];
-
-			 CheckPosition = ChangeNodePos(TempNode, CheckPosition);
-
-			 if (CheckPosition != NODE_POS::START)
-			 {
-				pChangeParent->NodePosition[(int)CheckPosition] = pNewNodeParent;
-
-			 }
-			
+			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = pNewGGParent;
 
 
-			 pNewNodeGradParent->NodePosition[(int)NODE_POS::RCHILD] = TempNode;
+			 CheckPosition = ChangeNodePos(pNewNodeGradParent, CheckPosition);
 
-			 TempNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeParent;
-			 TempNode->NodePosition[(int)::NODE_POS::LCHILD] = m_pNil;
-			 
+			 pNewGGParent->NodePosition[(int)CheckPosition] = pNewNodeParent;
 
-			 TempNode->NodePosition[(int)::NODE_POS::LCHILD] = PosTempNode;
-			 PosTempNode->NodePosition[(int)::NODE_POS::PARENT] = TempNode;
+			 pNewNodeParent->NodePosition[(int)NODE_POS::RCHILD] = pNewNodeGradParent;
+
+
+			 pNewNodeGradParent->NodePosition[(int)NODE_POS::PARENT] = pNewNodeParent;
+
+			 pNewNodeGradParent->NodePosition[(int)NODE_POS::LCHILD] = pNewChildNode;
+			 pNewChildNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeGradParent;
+
+
 		 }
+
+
+		 _pNewNode = pNewNodeGradParent;
 	 }
-	 else
-	 {
-		 std::cout << "어느 케이스에도 해당이 되지 않습니다" << std::endl;
-	 }
-	
-	 _pNewNode = TempNode;
-	
 
 
 	return _pNewNode;
@@ -971,6 +942,37 @@ typename FBSTNode<T1, T2>* CBST<T1, T2>::GetUncle(FBSTNode<T1, T2>* _pNode)
 	
 	return pNodeGrandParent->NodePosition[(int)UnclePos];
 }
+
+template<typename T1, typename T2>
+typename FBSTNode<T1, T2>* CBST<T1, T2>::GetSibling(FBSTNode<T1, T2>* _pNode)
+{
+	FBSTNode<T1, T2>* pNodeParent = _pNode->NodePosition[(int)NODE_POS::PARENT];
+
+	FBSTNode<T1, T2>* pNodeSibling = nullptr;
+	if (pNodeParent == nullptr)
+	{
+		return nullptr;
+	}
+
+	//왼쪽자식
+	if (_pNode->IsLeftChild())
+	{
+
+		pNodeParent->NodePosition[(int)NODE_POS::RCHILD];
+		return pNodeSibling;
+	}
+	//오르쪽자식
+	if (_pNode->IsRightChild())
+	{
+		pNodeSibling = pNodeParent->NodePosition[(int)NODE_POS::LCHILD];
+		return pNodeSibling;
+	}
+
+
+
+
+}
+
 
 template<typename T1, typename T2>
  typename NODE_POS CBST<T1, T2> ::ChangeNodePos(FBSTNode<T1, T2>* _pNode, NODE_POS _pos)
