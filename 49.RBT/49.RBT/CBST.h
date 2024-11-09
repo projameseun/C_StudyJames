@@ -20,9 +20,8 @@ template<typename T1, typename T2>
 struct FPair
 {
 	T1		first;		//키값
-	T1		second;		//밸류
+	T2		second;		//밸류
 };
-
 
 //make pair 생성
 template<typename T1, typename T2>
@@ -30,6 +29,7 @@ FPair<T1, T2> make_mypair(const T1& _first, const T2& _second)
 {
 	return FPair<T1, T2>{_first, _second};
 }
+
 
 template<typename T1, typename T2>
 struct FBSTNode
@@ -149,7 +149,7 @@ public:
 	}
 	//Nil노드 생성자
 	FBSTNode(FBSTNode* _pParent, FBSTNode* _pLChild, FBSTNode* _pRChild) :
-		pair(make_mypair(0, 0)),
+		pair(),
 		NodePosition{ _pParent, _pLChild, _pRChild },
 		m_NodeColor(NODE_COLOR::Default)
 	{

@@ -1,6 +1,9 @@
 #include <iostream>
 #include "CBST.h"
 #include <map>
+#include <string>
+
+using namespace std;
 
 
 int main()
@@ -27,8 +30,27 @@ int main()
 	int a = 0;
 
 	CBST<int, int> MyInt;
+
+	CBST<string, int> MyStr;
 	
+	string str;
+	string str2;
+
+	//str2 = "°¡";
+
+	//str = "°¡";
+	MyStr.insert(make_mypair(static_cast<string>("ÀºÁø¼ö"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("±èÈñ½Â"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("ÀÌ½ÂÈÆ"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("À¯Á¤È­"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("Àº¼º¼ö"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("±èÈñÀç"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("Á¤Áø¸ğ"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("¿ÀÁÖÈ£"), 0));
+
 	CBST<int, int>::iterator iter2;
+
+	CBST<string, int>::iterator iterstr;
 
 
 	
@@ -74,6 +96,16 @@ int main()
 	
 	std::cout << iCount << std::endl;
 	int c = 0;
+
+
+	iterstr = MyStr.begin();
+
+	for (iterstr; iterstr != MyStr.end() && iterstr != MyStr.GetNilNode(); ++iterstr)
+	{
+		//iCount++;
+		std::cout << (*iterstr).first << std::endl;
+
+	}
 
 
 	return 0;
