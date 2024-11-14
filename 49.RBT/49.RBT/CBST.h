@@ -686,14 +686,7 @@ template<typename T1, typename T2>
 			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = _pNewNode;
 
 			 pNewNodeParent->NodePosition[(int)::NODE_POS::RCHILD] = pNewChildNode;
-			 pNewChildNode->NodePosition[(int)::NODE_POS::PARENT] = pNewNodeParent;
-
-
-
-
-
-
-
+			
 
 		 }
 		 //부모의 자식이 오른쪽
@@ -708,7 +701,14 @@ template<typename T1, typename T2>
 			 pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = _pNewNode;
 
 			 pNewNodeParent->NodePosition[(int)::NODE_POS::LCHILD] = pNewChildNode;
-			 pNewChildNode->NodePosition[(int)::NODE_POS::PARENT] = pNewNodeParent;
+			 
+		 }
+
+		 if (pNewChildNode->NodePosition[(int)NODE_POS::PARENT] != nullptr)
+
+		 {
+			 pNewChildNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeParent;
+
 		 }
 
 
@@ -717,8 +717,6 @@ template<typename T1, typename T2>
 	 }
 	 else if (_iNumer == 3)
 	 {
-
-
 
 		 if (pNewNodeGradParent == m_pRoot)
 		 {
@@ -735,15 +733,20 @@ template<typename T1, typename T2>
 
 			 CheckPosition = ChangeNodePos(pNewNodeGradParent, CheckPosition);
 
-			 pNewGGParent->NodePosition[(int)CheckPosition] = pNewNodeParent;
+			 if (pNewGGParent != m_pNil || nullptr)
+			 {
+				 pNewGGParent->NodePosition[(int)CheckPosition] = pNewNodeParent;
+
+			 }
 
 			 pNewNodeParent->NodePosition[(int)NODE_POS::LCHILD] = pNewNodeGradParent;
 
+			 
 
 			 pNewNodeGradParent->NodePosition[(int)NODE_POS::PARENT] = pNewNodeParent;
 
 			 pNewNodeGradParent->NodePosition[(int)NODE_POS::RCHILD] = pNewChildNode;
-			 pNewChildNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeGradParent;
+			
 
 
 		 }
@@ -757,16 +760,25 @@ template<typename T1, typename T2>
 
 			 CheckPosition = ChangeNodePos(pNewNodeGradParent, CheckPosition);
 
-			 pNewGGParent->NodePosition[(int)CheckPosition] = pNewNodeParent;
+			 if (pNewGGParent != m_pNil || nullptr)
+			 {
+				pNewGGParent->NodePosition[(int)CheckPosition] = pNewNodeParent;
 
+			 }
+			
 			 pNewNodeParent->NodePosition[(int)NODE_POS::RCHILD] = pNewNodeGradParent;
-
 
 			 pNewNodeGradParent->NodePosition[(int)NODE_POS::PARENT] = pNewNodeParent;
 
-			 pNewNodeGradParent->NodePosition[(int)NODE_POS::LCHILD] = pNewChildNode;
-			 pNewChildNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeGradParent;
+			 pNewNodeGradParent->NodePosition[(int)NODE_POS::LCHILD] = pNewChildNode;	
 
+		 }
+
+
+		 if (pNewChildNode->NodePosition[(int)NODE_POS::PARENT] != nullptr)
+
+		 {
+			 pNewChildNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeGradParent;
 
 		 }
 

@@ -39,14 +39,24 @@ int main()
 	//str2 = "가";
 
 	//str = "가";
-	MyStr.insert(make_mypair(static_cast<string>("은진수"), 0));
+	/*MyStr.insert(make_mypair(static_cast<string>("은진수"), 0));
 	MyStr.insert(make_mypair(static_cast<string>("김희승"), 0));
 	MyStr.insert(make_mypair(static_cast<string>("이승훈"), 0));
 	MyStr.insert(make_mypair(static_cast<string>("유정화"), 0));
 	MyStr.insert(make_mypair(static_cast<string>("은성수"), 0));
 	MyStr.insert(make_mypair(static_cast<string>("김희재"), 0));
 	MyStr.insert(make_mypair(static_cast<string>("정진모"), 0));
-	MyStr.insert(make_mypair(static_cast<string>("오주호"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("오주호"), 0));*/
+
+
+	MyStr.insert(make_mypair(static_cast<string>("은진수"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("박만냥"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("김민지"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("이태훈"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("정진모"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("하인태"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("자두림"), 0));
+	MyStr.insert(make_mypair(static_cast<string>("박상철"), 0));
 
 	CBST<int, int>::iterator iter2;
 
