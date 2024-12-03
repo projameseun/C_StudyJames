@@ -980,7 +980,6 @@ typename  FBSTNode<T1, T2>* CBST<T1, T2>::DeleteRotation(FBSTNode<T1, T2>* _pNew
 	{
 
 	
-	
 
 		//부모의 자식이 왼쪽
 		if (_pos == NODE_POS::LCHILD)
@@ -1033,80 +1032,7 @@ typename  FBSTNode<T1, T2>* CBST<T1, T2>::DeleteRotation(FBSTNode<T1, T2>* _pNew
 		
 
 	}
-	else if (_iCase == 3)
-	{
-
-		if (pNewNodeGradParent == m_pRoot)
-		{
-			m_pRoot = pNewNodeParent;
-		}
-
-
-		if (_pos == NODE_POS::LCHILD)
-		{
-
-			pNewChildNode = pNewNodeParent->NodePosition[(int)NODE_POS::LCHILD];
-			pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = pNewGGParent;
-
-
-			CheckPosition = ChangeNodePos(pNewNodeGradParent, CheckPosition);
-
-			if (pNewGGParent != m_pNil || nullptr)
-			{
-				pNewGGParent->NodePosition[(int)CheckPosition] = pNewNodeParent;
-
-			}
-
-			pNewNodeParent->NodePosition[(int)NODE_POS::LCHILD] = pNewNodeGradParent;
-
-
-
-			pNewNodeGradParent->NodePosition[(int)NODE_POS::PARENT] = pNewNodeParent;
-
-			pNewNodeGradParent->NodePosition[(int)NODE_POS::RCHILD] = pNewChildNode;
-
-
-
-
-		}
-		else if (_pos == NODE_POS::RCHILD)
-		{
-
-			pNewChildNode = pNewNodeParent->NodePosition[(int)NODE_POS::RCHILD];
-
-			pNewNodeParent->NodePosition[(int)NODE_POS::PARENT] = pNewGGParent;
-
-
-			CheckPosition = ChangeNodePos(pNewNodeGradParent, CheckPosition);
-
-			if (pNewGGParent != m_pNil || nullptr)
-			{
-				pNewGGParent->NodePosition[(int)CheckPosition] = pNewNodeParent;
-
-			}
-
-			pNewNodeParent->NodePosition[(int)NODE_POS::RCHILD] = pNewNodeGradParent;
-
-
-
-			pNewNodeGradParent->NodePosition[(int)NODE_POS::PARENT] = pNewNodeParent;
-
-			pNewNodeGradParent->NodePosition[(int)NODE_POS::LCHILD] = pNewChildNode;
-
-
-		}
-
-
-		if (pNewChildNode->NodePosition[(int)NODE_POS::PARENT] != nullptr)
-
-		{
-			pNewChildNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeGradParent;
-
-		}
-
-
-		_pNewNode = pNewNodeGradParent;
-	}
+	
 
 	return _pNewNode;
 }
@@ -1137,6 +1063,7 @@ inline void CBST<T1, T2>::LeafNode(FBSTNode<T1, T2>* _pDelNode)
 template<typename T1, typename T2>
 inline void CBST<T1, T2>::ReplaceWithChild(FBSTNode<T1, T2>* _pDelNode, NODE_POS _pos)
 {
+
 	//삭제할 노드가 루트라면
 	if (_pDelNode == m_pRoot)
 	{
@@ -1730,13 +1657,29 @@ inline FBSTNode<T1, T2>* CBST<T1, T2>::DeleteNode(FBSTNode<T1, T2>* _pDelNode)
 		delete _pDelNode;
 	}
 
-	if (pSuccessor == m_pRoot || pPredecessor == m_pRoot)
+	
+	if (iSelect == (int)InorderSELECT::PREDCESSOR)
 	{
-		pExNode->iExtraBlack = 0;
+		if (pPredecessor == m_pRoot)
+		{
+			pExNode->iExtraBlack = 0;
 
+			return (iSelect == (int)InorderSELECT::PREDCESSOR) ? pPredecessor : pSuccessor;
+		}
 
-		return (iSelect == (int)InorderSELECT::PREDCESSOR) ? pPredecessor : pSuccessor;
 	}
+	else if (iSelect == (int)InorderSELECT::SUCCESOR)
+	{
+		if (pSuccessor == m_pRoot)
+		{
+			pExNode->iExtraBlack = 0;
+
+			return (iSelect == (int)InorderSELECT::PREDCESSOR) ? pPredecessor : pSuccessor;
+			
+		}
+
+	}
+	
 
 	
 	//삭제되는색이 검은색이라면 여기서 상황발생 
