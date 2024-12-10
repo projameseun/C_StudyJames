@@ -223,7 +223,7 @@ private:
 	FBSTNode<T1, T2>* DeleteCASEFOUR(FBSTNode<T1, T2>* _pNewNode, NODE_POS _pos);
 
 	FBSTNode<T1, T2>* InsertRotation(FBSTNode<T1, T2>* _pNewNode, NODE_POS _pos, int _iNumber);
-	FBSTNode<T1, T2>* DeleteRotation(FBSTNode<T1, T2>* _pNewNode, NODE_POS _pos, int _iNumber);
+	FBSTNode<T1, T2>* DeleteRotation(FBSTNode<T1, T2>* _pNewNode, NODE_POS _pos);
 
 	//단말노드인경우
 	void LeafNode(FBSTNode<T1, T2>* _pNewNode);
@@ -651,7 +651,7 @@ typename FBSTNode<T1, T2>* CBST<T1, T2>::DeleteCASE(FBSTNode<T1, T2>* _pSibling,
 		std::cout << "excase 1번 발생" << std::endl;
 		DeleteCASEONE(_pSibling, CheckPosition);
 
-		_pSibling = DeleteRotation(_pSibling, CheckPosition,2);
+		_pSibling = DeleteRotation(_pSibling, CheckPosition);
 
 		DeleteCASE(_pSibling, pExNode, CheckPosition, CheckPosition2);
 
@@ -713,7 +713,7 @@ typename FBSTNode<T1, T2>* CBST<T1, T2>::DeleteCASE(FBSTNode<T1, T2>* _pSibling,
 	{
 		std::cout << "excase 3번 발생" << std::endl;
 		DeleteCASETHREE(_pSibling, CheckPosition);
-		_pSibling = DeleteRotation(_pSibling->NodePosition[(int)CheckPosition], CheckPosition2, 2);
+		_pSibling = DeleteRotation(_pSibling->NodePosition[(int)CheckPosition], CheckPosition2);
 		
 
 		DeleteCASE(_pSibling->NodePosition[(int)NODE_POS::PARENT], pExNode, CheckPosition, CheckPosition2);
@@ -727,7 +727,7 @@ typename FBSTNode<T1, T2>* CBST<T1, T2>::DeleteCASE(FBSTNode<T1, T2>* _pSibling,
 		std::cout << "excase 4번 발생" << std::endl;
 		DeleteCASEFOUR(_pSibling, CheckPosition2);
 
-		DeleteRotation(_pSibling, CheckPosition, 2);
+		DeleteRotation(_pSibling, CheckPosition);
 
 	}
 
@@ -948,7 +948,7 @@ typename  FBSTNode<T1, T2>* CBST<T1, T2>::InsertRotation(FBSTNode<T1, T2>* _pNew
 }
 
 template<typename T1, typename T2>
-typename  FBSTNode<T1, T2>* CBST<T1, T2>::DeleteRotation(FBSTNode<T1, T2>* _pNewNode, NODE_POS _pos, int _iCase)
+typename  FBSTNode<T1, T2>* CBST<T1, T2>::DeleteRotation(FBSTNode<T1, T2>* _pNewNode, NODE_POS _pos)
 {
 	FBSTNode<T1, T2>* pNewNodeParent = GetParent(_pNewNode);
 	FBSTNode<T1, T2>* pNewNodeGradParent = GetGrandParent(_pNewNode);
@@ -976,10 +976,6 @@ typename  FBSTNode<T1, T2>* CBST<T1, T2>::DeleteRotation(FBSTNode<T1, T2>* _pNew
 		return _pNewNode;
 	}
 
-	if (_iCase == 2)
-	{
-
-	
 
 		//부모의 자식이 왼쪽
 		if (_pos == NODE_POS::LCHILD)
@@ -991,6 +987,14 @@ typename  FBSTNode<T1, T2>* CBST<T1, T2>::DeleteRotation(FBSTNode<T1, T2>* _pNew
 			_pNewNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeGradParent;
 			_pNewNode->NodePosition[(int)NODE_POS::LCHILD] = pNewNodeParent;
 
+			if (SiblingPos == NODE_POS::LCHILD)
+			{
+				std::cout << "Left" << std::endl;
+			}
+			else if (SiblingPos == NODE_POS::RCHILD)
+			{
+				std::cout << "right" << std::endl;
+			}
 		
 			pNewNodeGradParent->NodePosition[(int)SiblingPos] = _pNewNode;
 			//pNewNodeGradParent->NodePosition[(int)::NODE_POS::LCHILD] = _pNewNode;
@@ -1010,6 +1014,16 @@ typename  FBSTNode<T1, T2>* CBST<T1, T2>::DeleteRotation(FBSTNode<T1, T2>* _pNew
 
 			_pNewNode->NodePosition[(int)NODE_POS::PARENT] = pNewNodeGradParent;
 			_pNewNode->NodePosition[(int)NODE_POS::RCHILD] = pNewNodeParent;
+
+			if (SiblingPos == NODE_POS::LCHILD)
+			{
+				std::cout << "Left" << std::endl;
+			}
+			else if (SiblingPos == NODE_POS::RCHILD)
+			{
+				std::cout << "right" << std::endl;
+			}
+
 
 			pNewNodeGradParent->NodePosition[(int)SiblingPos] = _pNewNode;
 			//pNewNodeGradParent->NodePosition[(int)::NODE_POS::RCHILD] = _pNewNode;
@@ -1031,10 +1045,10 @@ typename  FBSTNode<T1, T2>* CBST<T1, T2>::DeleteRotation(FBSTNode<T1, T2>* _pNew
 		return pNewNodeParent;
 		
 
-	}
+	
 	
 
-	return _pNewNode;
+	//return _pNewNode;
 }
 
 template<typename T1, typename T2>
@@ -1550,7 +1564,10 @@ inline FBSTNode<T1, T2>* CBST<T1, T2>::DeleteNode(FBSTNode<T1, T2>* _pDelNode)
 
 	if (_pDelNode == m_pRoot)
 	{
+	
 		pNewSibling = m_pNil;
+
+		
 	}
 	
 
