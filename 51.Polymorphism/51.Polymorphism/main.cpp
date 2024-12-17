@@ -30,32 +30,20 @@ public:
 
 int main()
 {
-    //CParent* parentPtr = new CChild();  // 부모 클래스 포인터로 자식 클래스 객체를 다룬다.
-   // parentPtr->virutalFunc();  // 동적 바인딩: 자식의 Func() 호출 (실행 시점에 결정)
-   // delete parentPtr;
+
 
     CParent cParent;
     CChild child;
 
-   // CParent* pParent = &cParent;
-   // CChild* pChild = &child;
+   CParent* pParent = &cParent;
+   CChild* pChild = &child;
 
-    CParent* pParent = &child;  //문제가 없음 업캐스팅
-    pParent->OutPut();
-    pParent = &cParent;
-   //CChild* pChild = &cParent;  //문제가 있음 다운캐스팅
+    //CParent* pParent = &child;  //문제가 없음 업캐스팅
+    //pParent->OutPut();
+    //pParent = &cParent;
+  // CChild* pChild = &cParent;  //문제가 있음 다운캐스팅
 
-   
-   // pChild->OutPut();
 
-    CChild* pChild = (CChild*)(pParent);
-   // ((CChild*)pParent)->OutPut();
-   // 1.다운캐스팅을 사용할때는 일반적으로 업캐스팅을하고 사용해야 된다.
-
-    if (nullptr != pChild)
-    {
-        pChild->OutPut();
-    }
 
     //CParent* pParent2 = nullptr;
 
