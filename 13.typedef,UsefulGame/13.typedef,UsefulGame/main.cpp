@@ -60,6 +60,17 @@ int main()
 
 	st MyStudy = { 15,"제임스",100 };
 
+
+	/*
+		typdedef 사용되는 예시
+
+	*/
+
+	//1.포인터간소화
+	typedef int* IntPtr;
+	//2.표준 데이터타입 정의
+	typedef unsigned int uint32;
+
 	/*
 		sleep함수는 종류가 2가지가 있다.
 
