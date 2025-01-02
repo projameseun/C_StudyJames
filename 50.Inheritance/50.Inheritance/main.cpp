@@ -190,7 +190,7 @@ int main()
 	//ch.m_k
 	
 	//ch.Func();		//자식쪽에 재정의되있을때 (overrding) 자식이 호출이되고 만약에 자식에 똑같은 함수가 재정의 되어 있지않으면 부모가 호출된다.
-	//.CParent::Func();		//강제로 부모를 호출할때 
+	//CParent::Func();		//강제로 부모를 호출할때 
 
 	
 	return 0;
