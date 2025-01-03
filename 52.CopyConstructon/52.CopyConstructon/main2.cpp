@@ -9,6 +9,7 @@ struct man
 
 int main()
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	struct man alice;
 	struct man bob;
 
@@ -21,8 +22,11 @@ int main()
 	strcpy_s(bob.name, 30, "bob");
 	bob.age = 23;
 
-	//bob = alice;	//얕은복사
-	strcpy_s(bob.name, 30, alice.name); //깊은 복사처럼 보이지만 문자열만 복사한거고 새 메모리를 할당한건 아니라는거 
+	struct man temp;
+
+	temp = bob;	//얕은복사를 해버리면 bob의 링크가 사라지기때문에 미리 저장해놓는다
+	bob = alice;	//얕은복사
+	//strcpy_s(bob.name, 30, alice.name); //깊은 복사처럼 보이지만 문자열만 복사한거고 새 메모리를 할당한건 아니라는거 
 	//해당 name만 다른 메모리를 가리키게 되어 free햇을때 오류가 나지 않는것 뿐이다
 
 	strcpy_s(alice.name, 30, "alice2");
@@ -30,8 +34,17 @@ int main()
 	std::cout << alice.name << " " << alice.age << std::endl;
 	std::cout << bob.name << " " << bob.age << std::endl;
 
-	free(alice.name);
-	free(bob.name);
+	if (alice.name != nullptr)
+	{
+		free(alice.name);
+		alice.name = nullptr;
+	}
+	if (temp.name != nullptr)
+	{
+		free(temp.name);
+		temp.name = nullptr;
+	}
+
 
 	//이친구는 깊은복사처럼 보이지만 엄연히 따지면 깊은복사 아니야
 	//깊은복사는 객체의 새로운 복사본을 생성해야되는데
