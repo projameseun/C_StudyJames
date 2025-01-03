@@ -102,10 +102,12 @@ public:
 	
 };
 
+//
 void GameEngine(std::vector<Character*>& player)
 {
 	for (int i = 0; i < player.size(); ++i)
 	{
+		//(*player)[i].Attack()
 		player[i]->CharacterInfo();
 		player[i]->Attack();
 
@@ -136,6 +138,10 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	vector<Character*> player;
+
+	//Character ch;
+
+	
 
 	player.push_back(new Bard("바드", 70,100,"힐"));
 	player.push_back(new BattleMaster("배틀마스터", 100,"방천격","바람의속삭임"));
