@@ -9,14 +9,14 @@ public:
 	//깊은 복사를 위한 대입연산자
 	man& operator =(const man& _other)
 	{
-		if (this != &_other)
+		/*if (this != &_other)
 		{
 			if (name)
 			{
 				free(name);
 				name = nullptr;
 			}
-		}
+		}*/
 
 		age = _other.age;
 
@@ -32,7 +32,7 @@ public:
 			size_t iLength = strnlen_s(_other.name, 30);	//4하면터짐 
 
 			//c++방식
-			name = new char[iLength + 1];
+			//name = new char[iLength + 1];
 			strcpy_s(name, iLength + 1, _other.name);
 		}
 		else
@@ -42,6 +42,14 @@ public:
 
 		return *this;
 	}
+
+	//default 대입연산자
+	//man& operator =(const man& _other)
+	//{
+	//	this->name = _other.name;
+	//	this->age = _other.age;
+	//	return *this;
+	//}
 
 public:
 	~man()
