@@ -22,6 +22,7 @@ void Om::OmokMap(int colum, int row)
     }
 
     std::cout << "忙";
+   std::cout << "式";
 
 
 
@@ -29,7 +30,7 @@ void Om::OmokMap(int colum, int row)
     for (i = 0; i < colum - 1; i++)
     {
         std::cout << "成";
-
+        std::cout << "式";
     }
 
     std::cout << a << b[4];
@@ -43,22 +44,31 @@ void Om::OmokMap(int colum, int row)
     {
 
         std::cout << "戍";
-
+        std::cout << "式";
         for (j = 0; j < colum - 1; j++)
+        {
 
             std::cout << "托";
+            std::cout << "式";
+        }
 
+        
         std::cout << "扣";
 
         printf("\n");
 
     }
 
+
     std::cout << "戌";
+    std::cout << "式";
 
     for (i = 0; i < colum - 1; i++)
+    {
 
         std::cout << "扛";
+        std::cout << "式";
+    }
 
     std::cout << "戎";
 

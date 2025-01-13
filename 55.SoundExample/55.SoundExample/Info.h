@@ -5,6 +5,12 @@
 #include <Digitalv.h>
 #include <string>
 #include <vector>
+#include <time.h>
+#include <conio.h>
+
+//---------------음악을 사용할 헤더추가
+#pragma comment(lib,"winmm.lib")
+
 using namespace std;
 
 enum class MusicNumber
