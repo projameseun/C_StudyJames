@@ -26,3 +26,10 @@ enum class MusicNumber
 	PostMalone ,
 	SungSiKyung ,
 };
+
+enum class MenuSelect
+{
+	DefaultPlay = 1,
+	RandomPlay ,
+	EXIT ,
+};

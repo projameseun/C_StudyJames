@@ -34,6 +34,7 @@ public:
 
 public:
 	void InitRecordName();
+	void InitSettingRecordPath(vector<LPCTSTR> _re);
 	void SettingRecordPath(vector<LPCTSTR> _re);
 	void MusicePlayMenuPrint();
 	WORD InitMusiceDevice(LPCWSTR& _lpsz);
@@ -43,6 +44,8 @@ public:
 	void PauseMusic(int _ReNum);
 	void PlayMusic(int _ReNum);
 	void ResetMusic(int _ReNum);
+
+	void ShuffuleMusic();
 	
 	
 

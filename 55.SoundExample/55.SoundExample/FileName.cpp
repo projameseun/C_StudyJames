@@ -9,7 +9,7 @@ int main()
 
 	mic.InitRecordName();
 	
-	mic.SettingRecordPath(mic.GetRecordName());
+	mic.InitSettingRecordPath(mic.GetRecordName());
 
 	vector<LPCWSTR> rePath;
 
@@ -33,7 +33,8 @@ int main()
 			continue;
 		}
 
-		if (iSelect == 1)
+		
+		if (iSelect == (int)MenuSelect::DefaultPlay)
 		{
 			mic.MusicePlayMenuPrint();
 			for (int i = 0; i < mic.GetRecordName().size(); ++i)
@@ -43,34 +44,50 @@ int main()
 				mic.InitMusiceDevice(rePath[i]);
 
 			}
-			iSelect = 0; 
-			std::cin >> iSelect;
+		
+
+
 			
-			if (iSelect < 1 || iSelect > 10)
+		}
+
+		else if (iSelect == (int)MenuSelect::RandomPlay)
+		{
+			mic.ShuffuleMusic();
+			mic.SettingRecordPath(mic.GetRecordName());
+			mic.MusicePlayMenuPrint();
+			for (int i = 0; i < mic.GetRecordName().size(); ++i)
 			{
-				std::cout << "선택을 잘못하였습니다 다시 선택해주세요 " << std::endl;
-				Sleep(500);
-				continue;
+				 rePath = mic.GetRecordPath();
+				
+				mic.InitMusiceDevice(rePath[i]);
+
 			}
-
-		
-		
-			
 		}
 
-		else if (iSelect == 2)
+		else if (iSelect == (int)MenuSelect::EXIT)
 		{
-
+			break;
 		}
 
-		else if (iSelect == 3)
+
+		//노래목록 재생 select
+		iSelect = 0;
+
+		std::cin >> iSelect;
+
+		if (iSelect < 1 || iSelect > 10)
 		{
-			
+			std::cout << "선택을 잘못하였습니다 다시 선택해주세요 " << std::endl;
+			Sleep(500);
+			continue;
 		}
+
 
 		//노래시작
 		mic.UpdateMusic(iSelect);
 	}
+
+	mic.DestroyMusic();
 	
 
 	return 0;

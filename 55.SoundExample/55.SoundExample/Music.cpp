@@ -24,7 +24,7 @@ WORD Music::InitMusiceDevice(LPCWSTR& _lpsz)
 	m_MciOpen.lpstrElementName = _lpsz;
 
 	//DWORD_PTR 64비트 DWORD32비트 
-	m_Result = mciSendCommand(m_iDeviceID, MCI_OPEN, MCI_OPEN_TYPE | MCI_OPEN_ELEMENT, (DWORD_PTR)(LPVOID)&m_MciOpen);
+	m_Result = mciSendCommand(m_MciOpen.wDeviceID, MCI_OPEN, MCI_OPEN_TYPE | MCI_OPEN_ELEMENT, (DWORD_PTR)(LPVOID)&m_MciOpen);
 
 	m_iDeviceID = m_MciOpen.wDeviceID;
 
@@ -110,6 +110,7 @@ void Music::UpdateMusic(int _ReNum)
 		}
 		
 		ResetMusic(_ReNum);
+		UpdateMusic(iSelect);
 		
 	}
 
@@ -142,6 +143,23 @@ void Music::ResetMusic(int _ReNum)
 	mciSendCommand(_ReNum, MCI_SEEK, MCI_SEEK_TO_START, (DWORD_PTR)(LPVOID)NULL);
 }
 
+void Music::ShuffuleMusic()
+{
+	int idx1, idx2 = 0;
+
+	LPCWSTR strTemp;
+
+	for (int i = 0; i < 100; ++i)
+	{
+		idx1 = rand() % 10;
+		idx2 = rand() % 10;
+
+		strTemp = m_RecordName[idx1];
+		m_RecordName[idx1] = m_RecordName[idx2];
+		m_RecordName[idx2] = strTemp;
+	}
+}
+
 void Music::InitRecordName()
 {
 	//음악 레코드 넣기
@@ -159,7 +177,7 @@ void Music::InitRecordName()
 }
 
 
-void Music::SettingRecordPath(vector<LPCTSTR> _re)
+void Music::InitSettingRecordPath(vector<LPCTSTR> _re)
 {
 	for (int i = 0; i < _re.size(); ++i)
 	{
@@ -209,3 +227,60 @@ void Music::SettingRecordPath(vector<LPCTSTR> _re)
 	}*/
 
 }
+
+void Music::SettingRecordPath(vector<LPCTSTR> _re)
+{
+		m_RecordPath.clear();
+
+
+	for (int i = 0; i < _re.size(); ++i)
+	{
+
+
+		if (_re[i] == L"TroyeSIvan")
+		{
+			m_RecordPath.push_back(L".\\Music\\seventeen.mp3");
+		}
+		else if (_re[i] == L"Maroon5")
+		{
+			m_RecordPath.push_back(L".\\Music\\Memories.mp3");
+		}
+		else if (_re[i] == L"YouDaEn")
+		{
+			m_RecordPath.push_back(L".\\Music\\jisang.mp3");
+		}
+		else if (_re[i] == L"JangBeomJun")
+		{
+			m_RecordPath.push_back(L".\\Music\\jangbumzun.mp3");
+		}
+		else if (_re[i] == L"GyungSeo")
+		{
+			m_RecordPath.push_back(L".\\Music\\gyungseo.mp3");
+		}
+		else if (_re[i] == L"AllTimeLow")
+		{
+			m_RecordPath.push_back(L".\\Music\\timebomb.mp3");
+		}
+		else if (_re[i] == L"OnePiece")
+		{
+			m_RecordPath.push_back(L".\\Music\\onepiece.mp3");
+		}
+		else if (_re[i] == L"PostMalone")
+		{
+			m_RecordPath.push_back(L".\\Music\\postmalone.mp3");
+
+		}
+		else if (_re[i] == L"AnnerMarie")
+		{
+			m_RecordPath.push_back(L".\\Music\\2002.mp3");
+		}
+		else if (_re[i] == L"SungSiKyung")
+		{
+			m_RecordPath.push_back(L".\\Music\\sungsikyung.mp3");
+		}
+
+	}
+
+	int a = 0;
+}
+
