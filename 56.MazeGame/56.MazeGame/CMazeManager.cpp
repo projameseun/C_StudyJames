@@ -182,7 +182,13 @@ void CMazeManager::Update(int _idx, char* pBuffer)
 	
 	std::cout << "게임을 다시 시작할려면 ENTER 눌러주세요 " << std::endl;
 
-	getchar();
+	//enter를 누를떄까지 기다림 
+	while (_getch() != '\r')
+	{
+		char test = _getch();
+		int a = 0;
+	}
+	
 
 
 

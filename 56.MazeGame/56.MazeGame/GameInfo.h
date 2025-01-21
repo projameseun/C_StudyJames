@@ -8,6 +8,7 @@
 #include <time.h>
 #include <limits>
 #include <string>
+#include <conio.h>	
 
 
 using namespace std;
