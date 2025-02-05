@@ -76,6 +76,7 @@ public:
 			COORD tBufferSize = { static_cast<SHORT>(m_iWidth), static_cast<SHORT>(m_iHeight) };
 			if(!SetConsoleScreenBufferSize(m_Buffer[i], tBufferSize))
 			{
+				int iError = GetLastError();
 				CloseHandle(m_Buffer[i]);
 				throw std::runtime_error("실패했습니다.");
 			}
@@ -130,8 +131,32 @@ public:
 
 int main()
 {
-	const int width = 100;
-	const int height = 100;
+
+	// 콘솔 창의 크기를 설정 (너비 120, 높이 30)
+	system("mode con: cols=50 lines=50");
+
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	if (hConsole == INVALID_HANDLE_VALUE)
+	{
+		std::cerr << "GetStdHandle failed with error " << GetLastError() << std::endl;
+		return 0;
+	}
+
+	CONSOLE_SCREEN_BUFFER_INFO csbi;
+	if (!GetConsoleScreenBufferInfo(hConsole, &csbi))
+	{
+		std::cerr << "GetConsoleScreenBufferInfo failed with error " << GetLastError() << std::endl;
+		return 0;
+	}
+
+	int iWidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+	int iHeight = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+	//const int width = 120;
+	//const int height = 30;
+
+
+
+	
 
 	//ConsoleDoubleBuffer console(width, height);
 
@@ -157,7 +182,7 @@ int main()
 	//}
 
 	try {
-		ConsoleDoubleBuffer console(width, height);
+		ConsoleDoubleBuffer console(iWidth, iHeight);
 		while (true)
 		{
 			console.Clear();
@@ -172,5 +197,6 @@ int main()
 	{
 		std::cout << e.what() << std::endl;
 	}
+
 	return 0;
 }
