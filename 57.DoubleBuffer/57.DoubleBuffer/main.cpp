@@ -133,7 +133,7 @@ int main()
 {
 
 	// 콘솔 창의 크기를 설정 (너비 120, 높이 30)
-	system("mode con: cols=50 lines=50");
+	system("mode con: cols=100 lines=50");
 
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (hConsole == INVALID_HANDLE_VALUE)
@@ -151,8 +151,8 @@ int main()
 
 	int iWidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
 	int iHeight = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
-	//const int width = 120;
-	//const int height = 30;
+	//const int iWidth = 100;
+	//const int iHeight = 50;
 
 
 

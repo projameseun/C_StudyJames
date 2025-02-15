@@ -38,7 +38,7 @@ bool CMaze::Start(const char* pFileName)
 	//_ACRTIMP char* __cdecl strtok_s(
 	//	_Inout_opt_z_                 char* _String,		분리할 문자열주소 첫 호출에서는 문자열의 시작주소를 전달 이후 호출에서는 NULL을 전달하여 이전 호출의 상태를 이어간다
 	//	_In_z_                        char const* _Delimiter,		구분자 예를들어 ,면 쉼표로 문자열을 나눈다
-	//	_Inout_ _Deref_prepost_opt_z_ char** _Context		문자열 분리 상태를 저장하는 포인터 
+	//	_Inout_ _Deref_prepost_opt_z_ char** _Context		문자열 분리 상태를 저장하는 포인터 문자열의 현재위치를 저장하는 포인터!
 	//);
 	//strtok는 내부적으로 상태를 저장하지 않는다 대신 호출자가 제공한 context를 사용하여 상태를 관리한다.
 	//안정성을 극복하기위해 설계된것이고 여러문자열을 동시에 처리하거나 스레드간에 동일한 함수 호출을 사용할경우에도 안전하다.
