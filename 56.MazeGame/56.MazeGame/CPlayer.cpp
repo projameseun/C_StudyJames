@@ -161,8 +161,8 @@ void CPlayer::Update(float fDeltaTime)
 			pBomb->SetPower(m_iPower); 
 
 			pMaze->SetBlock(m_tPos, BLOCK::BOMB);
-			
-			pBomb->SetBomblCallBack<CPlayer>(this, &CPlayer::BombCallBack);
+			//void SetBomblCallBack(T* _pObj, void(T::* _pFunc)(CBomb*))
+			pBomb->SetBomblCallBack(this, &CPlayer::BombCallBack);
 		}
 	}	
 
