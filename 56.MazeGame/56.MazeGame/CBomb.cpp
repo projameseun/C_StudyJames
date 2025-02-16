@@ -11,11 +11,13 @@ CBomb::CBomb() :
 
 CBomb::~CBomb()
 {
-	if (m_pObj)
-	{
-		delete m_pObj;
-		m_pObj = nullptr;
-	}
+	//if (m_pObj)
+	//{
+	//	delete m_pObj;
+	//	m_pObj = nullptr;
+	//}
+
+	;
 }
 
 bool CBomb::Init()
@@ -124,16 +126,16 @@ void CBomb::Update(float _fDeltaTime)
 		}//	for (int i = 0; i < m_iPower; ++i)
 
 		//bind callback
-	/*	if (m_BombCallBack)
+		if (m_BombCallBack)
 		{
 			m_BombCallBack(this);
-		}*/
+		}
 
 		//다른방법
-		if (m_pFunc && m_pObj)
+		/*if (m_pFunc && m_pObj)
 		{
 			(m_pObj->*m_pFunc)(this);
-		}
+		}*/
 
 		Destroy();
 		

@@ -13,8 +13,8 @@ private:
 
 	//반환형(클래스이름::* 포인터이름)(매개변수 목록);
 	//멤버함수 포인터 객체포인터 멤버변수추가
-	void(CObject::* m_pFunc)(CBomb*);
-	CObject* m_pObj;
+	//void(CObject::* m_pFunc)(CBomb*);
+	//CObject* m_pObj;
 
 public:
 	void SetPower(int iPower)
@@ -36,13 +36,24 @@ public:
 
 	//1.콜백 함수가 호출될 객체의 포인터, 2.타입의 인수를 받는멤버 함수포인터
 	//std::bind는 멤버 함수 포인터와 객체 포인터를 결합하여 멤버 함수를 호출할 수 있는 함수 객체를 생성할 수도 있습니다.
+
+//	//placeholders설명 
+//	int sum(int a, int b, int c)
+//	{
+//		return a + b * 10 + c * 100;
+//}
+//	int main()
+//	{
+
+//		auto func3 = std::bind(sum, 1, std::placeholder::_2, std::placeholder::_1);
+//		cout << func3(2, 3) << endl;
+//	}
 	template <typename T>
 	void SetBomblCallBack(T* _pObj, void(T::* _pFunc)(CBomb*))
 	{
-		//m_BombCallBack = std::bind(_pFunc, _pObj, std::placeholders::_1);
-		
-		m_pObj = _pObj;
-		m_pFunc = static_cast<void (CObject::*)(CBomb*)>(_pFunc);
+		m_BombCallBack = std::bind(_pFunc, _pObj,placeholders::_1);		
+	/*	m_pObj = _pObj;
+		m_pFunc = static_cast<void (CObject::*)(CBomb*)>(_pFunc);*/
 	}
 
 private:

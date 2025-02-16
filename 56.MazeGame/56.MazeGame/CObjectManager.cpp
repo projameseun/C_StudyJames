@@ -11,14 +11,15 @@ CObjectManager::CObjectManager() : m_pPlayer(nullptr)
 CObjectManager::~CObjectManager()
 {
 	
-
 	for (int i = 0; i < m_ObjArray.size(); ++i)
 	{
 		delete	m_ObjArray[i];
+		m_ObjArray[i] = nullptr;
 
 	}
 
 	delete m_pPlayer;
+	m_pPlayer = nullptr;
 	
 }
 
