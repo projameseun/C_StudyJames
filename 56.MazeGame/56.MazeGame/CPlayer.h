@@ -26,5 +26,8 @@ public:
 	virtual bool Start();
 	virtual void Update(float fDeltaTime);
 	virtual void Render(char* pBuffer);
+
+public:
+	void BombCallBack(class CBomb* _pBomb);		//ÆøÅºÄÝ¹é
 };
 

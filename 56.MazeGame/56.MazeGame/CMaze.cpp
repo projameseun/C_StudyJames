@@ -1,4 +1,5 @@
-#include "CMaze.h"
+ï»¿#include "CMaze.h"
+
 
 CMaze::CMaze()
 {
@@ -6,6 +7,39 @@ CMaze::CMaze()
 
 CMaze::~CMaze()
 {
+//#define SAFE_DELETE_ARRAY(p) if(p) { delete[] p; p = nullptr; }	
+
+	for (int i = 0; i < m_iHeight; ++i)
+	{
+		if (m_pBlock[i])
+		{
+			delete[] m_pBlock[i];
+			m_pBlock[i] = nullptr;
+		}
+		
+		SAFE_DELETE_ARRAY(m_pBlockOrigin[i]);
+	}
+	
+	if (m_pBlock)
+	{
+		delete[] m_pBlock;
+		m_pBlock = nullptr;
+	}
+
+	SAFE_DELETE_ARRAY(m_pBlockOrigin);
+	
+
+	//SAFE_DELETE_ARRAY(m_pItemArray);
+
+	//2ì°¨ì›ë°°ì—´ í•´ì œ ë°©ë²• 
+		// ðŸ”¥ 2ì°¨ì› ë°°ì—´ ì‚­ì œ (ê° í–‰ì„ ë¨¼ì € ì‚­ì œ í›„, ë°°ì—´ í¬ì¸í„° ìžì²´ë¥¼ ì‚­ì œ)
+//	for (int i = 0; i < rows; ++i) {
+//		delete[] arr[i];  // ê° í–‰ì„ ì‚­ì œ
+//		arr[i] = nullptr;  // í¬ì¸í„°ë¥¼ nullptrë¡œ ì„¤ì •
+//	}
+//
+//	delete[] arr;  // ë°°ì—´ í¬ì¸í„° ìžì²´ë¥¼ ì‚­ì œ
+//	arr = nullptr;  // í¬ì¸í„°ë¥¼ nullptrë¡œ ì„¤ì •
 }
 
 bool CMaze::Start(const char* pFileName)
@@ -27,21 +61,21 @@ bool CMaze::Start(const char* pFileName)
 
 	fgets(cLine, 256, pFile);
 
-	//ÆÄ¾Å
-	//ÅäÅ«À» ³ª´©±âÀ§ÇØ¼­ »ç¿ëÇÏ´Â ÇÔ¼ö
-	// ±²ÀåÈ÷ ¸¹Àº ÁÖÀÇ°¡ ÇÊ¿äÇÏ°í »ç¿ëÀÚÃ¼¸¦ ±ÇÀåÇÏÁö ¾Ê´Â´Ù. 
-	// hello strtok func !\0 ÀÌ°É strtok ÇÔ¼ö¸¦ »ç¿ëÇÏ°Ô µÇ¸é
-	// hello\0strtok\0func\0!\0 ÀÌ·±½ÄÀ¸·Î º¯È¯ÀÌ µÈ´Ù 
-	// ¿øº» µ¥ÀÌÅÍÀÇ ¹«°á¼ºÀ» º¸ÀåÇØ¾ß µÇ´Â°æ¿ì¿¡´Â Àý´ë·Î »ç¿ëÇØ¼­´Â ¾ÈµÈ´Ù.
-	// ¹«°á¼ºÀÌ¶õ °£´ÜÇÏ°Ô Á¤È®ÇÏ°í º¯°æµÇÁö ¾ÊÀº »óÅÂ¸¦ ¸»ÇÑ´Ù.
+	//íŒŒì”½
+	//í† í°ì„ ë‚˜ëˆ„ê¸°ìœ„í•´ì„œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
+	// êµ‰ìž¥ížˆ ë§Žì€ ì£¼ì˜ê°€ í•„ìš”í•˜ê³  ì‚¬ìš©ìžì²´ë¥¼ ê¶Œìž¥í•˜ì§€ ì•ŠëŠ”ë‹¤. 
+	// hello strtok func !\0 ì´ê±¸ strtok í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•˜ê²Œ ë˜ë©´
+	// hello\0strtok\0func\0!\0 ì´ëŸ°ì‹ìœ¼ë¡œ ë³€í™˜ì´ ëœë‹¤ 
+	// ì›ë³¸ ë°ì´í„°ì˜ ë¬´ê²°ì„±ì„ ë³´ìž¥í•´ì•¼ ë˜ëŠ”ê²½ìš°ì—ëŠ” ì ˆëŒ€ë¡œ ì‚¬ìš©í•´ì„œëŠ” ì•ˆëœë‹¤.
+	// ë¬´ê²°ì„±ì´ëž€ ê°„ë‹¨í•˜ê²Œ ì •í™•í•˜ê³  ë³€ê²½ë˜ì§€ ì•Šì€ ìƒíƒœë¥¼ ë§í•œë‹¤.
 	// 
 	//_ACRTIMP char* __cdecl strtok_s(
-	//	_Inout_opt_z_                 char* _String,		ºÐ¸®ÇÒ ¹®ÀÚ¿­ÁÖ¼Ò Ã¹ È£Ãâ¿¡¼­´Â ¹®ÀÚ¿­ÀÇ ½ÃÀÛÁÖ¼Ò¸¦ Àü´Þ ÀÌÈÄ È£Ãâ¿¡¼­´Â NULLÀ» Àü´ÞÇÏ¿© ÀÌÀü È£ÃâÀÇ »óÅÂ¸¦ ÀÌ¾î°£´Ù
-	//	_In_z_                        char const* _Delimiter,		±¸ºÐÀÚ ¿¹¸¦µé¾î ,¸é ½°Ç¥·Î ¹®ÀÚ¿­À» ³ª´«´Ù
-	//	_Inout_ _Deref_prepost_opt_z_ char** _Context		¹®ÀÚ¿­ ºÐ¸® »óÅÂ¸¦ ÀúÀåÇÏ´Â Æ÷ÀÎÅÍ ¹®ÀÚ¿­ÀÇ ÇöÀçÀ§Ä¡¸¦ ÀúÀåÇÏ´Â Æ÷ÀÎÅÍ!
+	//	_Inout_opt_z_                 char* _String,		ë¶„ë¦¬í•  ë¬¸ìžì—´ì£¼ì†Œ ì²« í˜¸ì¶œì—ì„œëŠ” ë¬¸ìžì—´ì˜ ì‹œìž‘ì£¼ì†Œë¥¼ ì „ë‹¬ ì´í›„ í˜¸ì¶œì—ì„œëŠ” NULLì„ ì „ë‹¬í•˜ì—¬ ì´ì „ í˜¸ì¶œì˜ ìƒíƒœë¥¼ ì´ì–´ê°„ë‹¤
+	//	_In_z_                        char const* _Delimiter,		êµ¬ë¶„ìž ì˜ˆë¥¼ë“¤ì–´ ,ë©´ ì‰¼í‘œë¡œ ë¬¸ìžì—´ì„ ë‚˜ëˆˆë‹¤
+	//	_Inout_ _Deref_prepost_opt_z_ char** _Context		ë¬¸ìžì—´ ë¶„ë¦¬ ìƒíƒœë¥¼ ì €ìž¥í•˜ëŠ” í¬ì¸í„° ë¬¸ìžì—´ì˜ í˜„ìž¬ìœ„ì¹˜ë¥¼ ì €ìž¥í•˜ëŠ” í¬ì¸í„°!
 	//);
-	//strtok´Â ³»ºÎÀûÀ¸·Î »óÅÂ¸¦ ÀúÀåÇÏÁö ¾Ê´Â´Ù ´ë½Å È£ÃâÀÚ°¡ Á¦°øÇÑ context¸¦ »ç¿ëÇÏ¿© »óÅÂ¸¦ °ü¸®ÇÑ´Ù.
-	//¾ÈÁ¤¼ºÀ» ±Øº¹ÇÏ±âÀ§ÇØ ¼³°èµÈ°ÍÀÌ°í ¿©·¯¹®ÀÚ¿­À» µ¿½Ã¿¡ Ã³¸®ÇÏ°Å³ª ½º·¹µå°£¿¡ µ¿ÀÏÇÑ ÇÔ¼ö È£ÃâÀ» »ç¿ëÇÒ°æ¿ì¿¡µµ ¾ÈÀüÇÏ´Ù.
+	//strtokëŠ” ë‚´ë¶€ì ìœ¼ë¡œ ìƒíƒœë¥¼ ì €ìž¥í•˜ì§€ ì•ŠëŠ”ë‹¤ ëŒ€ì‹  í˜¸ì¶œìžê°€ ì œê³µí•œ contextë¥¼ ì‚¬ìš©í•˜ì—¬ ìƒíƒœë¥¼ ê´€ë¦¬í•œë‹¤.
+	//ì•ˆì •ì„±ì„ ê·¹ë³µí•˜ê¸°ìœ„í•´ ì„¤ê³„ëœê²ƒì´ê³  ì—¬ëŸ¬ë¬¸ìžì—´ì„ ë™ì‹œì— ì²˜ë¦¬í•˜ê±°ë‚˜ ìŠ¤ë ˆë“œê°„ì— ë™ì¼í•œ í•¨ìˆ˜ í˜¸ì¶œì„ ì‚¬ìš©í• ê²½ìš°ì—ë„ ì•ˆì „í•˜ë‹¤.
 
 	char* pContext = nullptr;
 	char* pWidth = nullptr;
@@ -49,12 +83,12 @@ bool CMaze::Start(const char* pFileName)
 	pWidth = strtok_s(cLine, ", ",&pContext);
 	pHeigth = strtok_s(NULL, ", ", & pContext);
 	m_iWidth = atoi(pWidth);
-	m_iHeigth = atoi(pHeigth);
+	m_iHeight = atoi(pHeigth);
 
-	m_pBlockOrigin = new char* [m_iHeigth];
-	m_pBlock = new char* [m_iHeigth];
+	m_pBlockOrigin = new char* [m_iHeight];
+	m_pBlock = new char* [m_iHeight];
 
-	for (int i = 0; i < m_iHeigth; ++i)
+	for (int i = 0; i < m_iHeight; ++i)
 	{
 		m_pBlockOrigin[i] = new char[m_iWidth];
 		m_pBlock[i] = new char[m_iWidth];
@@ -63,8 +97,8 @@ bool CMaze::Start(const char* pFileName)
 
 		fgets(cLine, 256, pFile);
 		
-		memcpy(m_pBlockOrigin[i], cLine, m_iWidth);	//¸Ê º»Ã¼
-		memcpy(m_pBlock[i], cLine, m_iWidth);	//¸ÊÀÇ Á¤º¸µéÀ»´ã´Â ºí¶ô
+		memcpy(m_pBlockOrigin[i], cLine, m_iWidth);	//ë§µ ë³¸ì²´
+		memcpy(m_pBlock[i], cLine, m_iWidth);	//ë§µì˜ ì •ë³´ë“¤ì„ë‹´ëŠ” ë¸”ë½
 		
 
 		for (int j = 0; j < m_iWidth; ++j)
@@ -86,8 +120,8 @@ bool CMaze::Start(const char* pFileName)
 
 	fclose(pFile);
 
-	//¾ÆÀÌÅÛÃß°¡
-	//¸ó½ºÅÍÃß°¡ 
+	//ì•„ì´í…œì¶”ê°€
+	//ëª¬ìŠ¤í„°ì¶”ê°€ 
 
 	strcpy_s(m_strName, pFileName);
 
@@ -101,7 +135,7 @@ void CMaze::Render(char* pBuffer)
 {
 	int iCurrent = 0;
 
-	for (int i = 0; i < m_iHeigth; ++i)
+	for (int i = 0; i < m_iHeight; ++i)
 	{
 		for (int j = 0; j < m_iWidth; ++j)
 		{
@@ -112,19 +146,19 @@ void CMaze::Render(char* pBuffer)
 				memcpy(&pBuffer[iCurrent], "  ", 2);
 				break;
 			case BLOCK::WALL:
-				memcpy(&pBuffer[iCurrent], "¡á", 2);
+				memcpy(&pBuffer[iCurrent], "â– ", 2);
 				break;
 			case BLOCK::START:
-				memcpy(&pBuffer[iCurrent], "¡Ú", 2);
+				memcpy(&pBuffer[iCurrent], "â˜…", 2);
 				break;
 			case BLOCK::EXIT:
-				memcpy(&pBuffer[iCurrent], "¢Ñ ", 2);
+				memcpy(&pBuffer[iCurrent], "â˜ž ", 2);
 				break;
 			}
 
 			iCurrent += 2;
 		}
-		//ÇÑÁÙ 
+		//í•œì¤„ 
 		pBuffer[iCurrent] = '\n';
 		++iCurrent;
 	}

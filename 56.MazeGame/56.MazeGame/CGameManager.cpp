@@ -13,6 +13,8 @@ CGameManager::CGameManager()
 CGameManager::~CGameManager()
 {
 	//여러가지 게임의 요소들을 삭제해주는 곳
+	CObjectManager::DestroyInst();
+	CMazeManager::DestroyInst();
 }
 
 bool CGameManager::Start()

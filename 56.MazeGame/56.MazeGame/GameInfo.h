@@ -9,6 +9,7 @@
 #include <limits>
 #include <string>
 #include <conio.h>	
+#include <functional>
 
 
 using namespace std;
@@ -23,5 +24,15 @@ enum class BLOCK
 	ITEM = '5'
 };
 
+enum class DIR
+{
+	UP = 0,
+	DOWN,
+	LEFT,
+	RIGHT
+};
+
 #define RENDER_BUFFER_WIDTH 60
 #define RENDER_BUFFER_HEIGHT 30
+
+#define SAFE_DELETE_ARRAY(p) if(p) { delete[] p; p = nullptr; }	

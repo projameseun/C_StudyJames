@@ -12,7 +12,7 @@ private:
 	char**	m_pBlock;
 	char**	m_pBlockOrigin;
 	int		m_iWidth;
-	int		m_iHeigth;
+	int		m_iHeight;
 
 	COORD	m_tStartPos;
 	COORD	m_tExitPos;
@@ -25,7 +25,7 @@ public:
 	
 	int GetHeigth() const
 	{
-		return m_iHeigth;
+		return m_iHeight;
 	}
 
 	const char* GetName() const

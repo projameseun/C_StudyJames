@@ -28,6 +28,9 @@
     <Filter Include="03.Object\01.Player">
       <UniqueIdentifier>{04e649ca-937d-404f-984b-c160a7fa7b85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Object\02.Bomb">
+      <UniqueIdentifier>{53057d22-8fa5-4ddd-80ff-19b26bcd0a9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInfo.h">
@@ -46,10 +49,13 @@
       <Filter>03.Object</Filter>
     </ClInclude>
     <ClInclude Include="CPlayer.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>03.Object\01.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CBomb.h">
+      <Filter>03.Object\02.Bomb</Filter>
     </ClInclude>
     <ClInclude Include="CObjectManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>03.Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -68,11 +74,14 @@
     <ClCompile Include="CObject.cpp">
       <Filter>03.Object</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="CObjectManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>03.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>03.Object\01.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CBomb.cpp">
+      <Filter>03.Object\02.Bomb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

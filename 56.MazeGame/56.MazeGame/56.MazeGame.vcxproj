@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBomb.h" />
     <ClInclude Include="CGameManager.h" />
     <ClInclude Include="CMaze.h" />
     <ClInclude Include="CMazeManager.h" />
@@ -136,6 +137,7 @@
     <ClInclude Include="GameInfo.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBomb.cpp" />
     <ClCompile Include="CGameManager.cpp" />
     <ClCompile Include="CMaze.cpp" />
     <ClCompile Include="CMazeManager.cpp" />

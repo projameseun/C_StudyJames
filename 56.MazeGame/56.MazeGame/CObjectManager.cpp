@@ -3,9 +3,10 @@
 
 CObjectManager* CObjectManager::m_pInst = nullptr;
 
-CObjectManager::CObjectManager() 
+CObjectManager::CObjectManager() : m_pPlayer(nullptr)
 {
-}
+
+}	
 
 CObjectManager::~CObjectManager()
 {
@@ -18,6 +19,7 @@ CObjectManager::~CObjectManager()
 	}
 
 	delete m_pPlayer;
+	
 }
 
 bool CObjectManager::Start()

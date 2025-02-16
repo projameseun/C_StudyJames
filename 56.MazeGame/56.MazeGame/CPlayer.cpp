@@ -2,14 +2,14 @@
 #include "CMaze.h"
 #include "CMazeManager.h"
 #include "CObjectManager.h"
-
+#include "CBomb.h"
 
 CPlayer::CPlayer() : 
 	m_fSpeed(5.f),
 	m_fX(0.f),
 	m_fY(0.f),
 	m_iBombCount(0),
-	m_iBombMax(1),
+	m_iBombMax(2),		//ÆøÅº°¹¼ö
 	m_iPower(1)
 {
 }
@@ -150,6 +150,21 @@ void CPlayer::Update(float fDeltaTime)
 	//¾ÆÀÌÅÛ Ãß°¡
 
 	//ÆøÅºÃß°¡
+	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+	{
+		if (m_iBombCount < m_iBombMax && pMaze->GetBlock(m_tPos) != BLOCK::BOMB)
+		{
+			++m_iBombCount;
+			
+			CBomb* pBomb = CObjectManager::GetInst()->CreateObject<CBomb>(m_tPos);	
+			
+			pBomb->SetPower(m_iPower); 
+
+			pMaze->SetBlock(m_tPos, BLOCK::BOMB);
+			
+			pBomb->SetBomblCallBack<CPlayer>(this, &CPlayer::BombCallBack);
+		}
+	}	
 
 	
 }
@@ -165,4 +180,9 @@ void CPlayer::Render(char* pBuffer)
 
 	
 
+}
+
+void CPlayer::BombCallBack(CBomb* _pBomb)
+{
+	--m_iBombCount;
 }
