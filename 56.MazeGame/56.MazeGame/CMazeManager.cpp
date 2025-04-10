@@ -26,6 +26,7 @@ bool CMazeManager::Start()
 	//r :읽기 w : 쓰기 a :이어쓰기
 	//t : 텍스트파일 , b : 바이너리파일
 
+	//해당파일을 열어서 미로 맵의 정보를 갖고온다
 	fopen_s(&pFile, "MazeList.txt", "rt");
 
 	if (!pFile)
@@ -228,7 +229,5 @@ int CMazeManager::MazeMainMenu()
 	return iSelect;
 
 	
-	
 
-	return 0;
 }

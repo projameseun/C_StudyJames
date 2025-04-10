@@ -23,9 +23,10 @@ CObjectManager::~CObjectManager()
 	
 }
 
+
 bool CObjectManager::Start()
 {
-	m_pPlayer = new CPlayer;
+	m_pPlayer = new CPlayer;	
 
 	if (!m_pPlayer->Start())
 	{
@@ -39,6 +40,7 @@ void CObjectManager::Update(float fDeltaTime)
 {
 	m_pPlayer->Update(fDeltaTime);
 
+	
 	vector<CObject*>::iterator iter = m_ObjArray.begin();
 	vector<CObject*>::iterator iterend = m_ObjArray.end();
 
@@ -46,6 +48,7 @@ void CObjectManager::Update(float fDeltaTime)
 
 	for (; iter != iterend;)
 	{
+		//아이템,폭탄등 active가 false라면 해당 Object삭제
 		if (!(*iter)->GetActive())
 		{
 			delete(*iter);
@@ -54,6 +57,7 @@ void CObjectManager::Update(float fDeltaTime)
 			continue;
 		}
 
+		//삭제되지않는 Object는 업데이트
 		(*iter)->Update(fDeltaTime);
 		++iter;
 	}

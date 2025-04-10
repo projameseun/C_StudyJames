@@ -55,7 +55,13 @@ public:
 
 	void clear()
 	{
+		//맵을 초기화를 시키지않으면 게임을 종료하기전까지 업데이트된 변화된 것들이 나오게 된다 새롭게 하기위해선 
+		//꼭 초기화를 해줘야된다.
 		
+		for (int i = 0; i < m_iHeight; ++i)
+		{
+			memcpy(m_pBlock[i], m_pBlockOrigin[i], m_iWidth);
+		}
 	}
 
 
