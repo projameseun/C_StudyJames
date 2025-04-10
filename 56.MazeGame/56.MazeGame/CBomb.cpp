@@ -20,7 +20,7 @@ CBomb::~CBomb()
 	;
 }
 
-bool CBomb::Init()
+bool CBomb::Start()
 {
 	return true;
 }

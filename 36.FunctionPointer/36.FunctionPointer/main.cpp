@@ -57,7 +57,7 @@ int main()
 
 
 
-	SetFunctionPointer(OutPut);
+	SetFunctionPointer(OutPut2);
 
 
 	return 0;

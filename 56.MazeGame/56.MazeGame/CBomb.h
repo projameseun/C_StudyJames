@@ -23,7 +23,7 @@ public:
 	}
 
 public:
-	virtual bool Init();
+	virtual bool Start();
 	virtual void Update(float _fDeltaTime);
 	virtual void Render(char* _pBuffer);
 	
