@@ -188,7 +188,7 @@ int main()
 			console.Clear();
 			console.Draw(0, 0, "Flickering");
 			console.PresentBufferOutPut();
-			std::this_thread::sleep_for(std::chrono::milliseconds(10));
+			std::this_thread::sleep_for(std::chrono::milliseconds(16));	//프레임 너무빠른거보다 30~ 60FPS (16~33ms)로 설정하는게 좋다
 			
 		}
 
