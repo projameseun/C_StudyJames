@@ -1,5 +1,8 @@
 #include <iostream>
 
+
+using namespace std;
+
 struct man
 {
 	char* name;
@@ -9,14 +12,14 @@ public:
 	//깊은 복사를 위한 대입연산자
 	man& operator =(const man& _other)
 	{
-		/*if (this != &_other)
+		if (this != &_other)
 		{
 			if (name)
 			{
 				free(name);
 				name = nullptr;
 			}
-		}*/
+		}
 
 		age = _other.age;
 
@@ -32,7 +35,7 @@ public:
 			size_t iLength = strnlen_s(_other.name, 30);	//4하면터짐 
 
 			//c++방식
-			//name = new char[iLength + 1];
+			name = new char[iLength + 1];
 			strcpy_s(name, iLength + 1, _other.name);
 		}
 		else
@@ -54,14 +57,31 @@ public:
 public:
 	~man()
 	{
-		if (name != nullptr)
+	/*	if (name != nullptr)
 		{
 			free(name);
 			name = nullptr;
-		}
+		}*/
 	}
 
 	
+
+};
+
+class Test
+{
+public:
+	const char* m_c;
+	int* m_pi;
+public:
+	Test(const char* _c) : m_c(_c)
+	{
+
+	}
+	Test(int* _i) : m_pi(_i)
+	{
+
+	}
 
 };
 
@@ -70,6 +90,25 @@ int main()
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	struct man alice;
 	struct man bob;
+
+	Test t1("안녕하세요");
+
+	Test t2 = t1;
+
+	t2.m_c = "변경";
+
+	std::cout << t1.m_c << std::endl;
+	std::cout << t2.m_c << std::endl;
+
+	int a = 10;
+	Test t3(&a);
+
+	Test t4 = t3;
+
+	*t4.m_pi = 30;
+
+	std::cout << *t3.m_pi << std::endl;
+	std::cout << *t4.m_pi << std::endl;
 
 
 	alice.name = (char*)malloc(30);
@@ -83,25 +122,25 @@ int main()
 	//struct man temp;
 
 	//temp = bob;	//얕은복사를 해버리면 bob의 링크가 사라지기때문에 미리 저장해놓는다
-	bob = alice;	//얕은복사
-	//strcpy_s(bob.name, 30, alice.name); //깊은 복사처럼 보이지만 문자열만 복사한거고 새 메모리를 할당한건 아니라는거 
-	//해당 name만 다른 메모리를 가리키게 되어 free햇을때 오류가 나지 않는것 뿐이다
+	//bob = alice;	//복사
 
-	strcpy_s(alice.name, 30, "alice2");
+	strcpy_s(alice.name, 30, "kaka");
 
 	std::cout << alice.name << " " << alice.age << std::endl;
 	std::cout << bob.name << " " << bob.age << std::endl;
 
-	//if (alice.name != nullptr)
-	//{
-	//	free(alice.name);
-	//	alice.name = nullptr;
-	//}
-	//if (bob.name != nullptr)
-	//{
-	//	free(bob.name);
-	//	bob.name = nullptr;
-	//}
+	if (alice.name != nullptr)
+	{
+		free(alice.name);
+		alice.name = nullptr;
+	}
+	if (bob.name != nullptr)
+	{
+		free(bob.name);
+		bob.name = nullptr;
+	}
+
+
 
 
 	//이친구는 깊은복사처럼 보이지만 엄연히 따지면 깊은복사 아니야
