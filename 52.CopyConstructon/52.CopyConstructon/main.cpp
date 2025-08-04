@@ -36,6 +36,16 @@ public:
 	{
 		m_Name = _str;
 	}
+
+	void SetItem(CItem* _item)
+	{
+		m_Item = _item;
+	}
+
+	CItem* GetItem()
+	{
+		return m_Item;
+	}
 	
 public:
 	CPlayer(const std::string& _name,int _hp,int _mp,float _speed,const std::string& _itemname, int _case) :	//Constructor
@@ -51,15 +61,15 @@ public:
 	//}
 
 	//ShallowCopy2
-	CPlayer(const CPlayer& _player) :
-		m_Name(_player.m_Name), iHP(_player.iHP), iMP(_player.iMP), fSpeed(_player.fSpeed)
-	{
-		//*this = _player;
-		m_Item = new CItem;
-		memcpy(m_Item, _player.m_Item, sizeof(CItem));
-		
-		std::cout << "ShallowCopy Call" << std::endl;
-	}
+	//CPlayer(const CPlayer& _player) :
+	//	m_Name(_player.m_Name), iHP(_player.iHP), iMP(_player.iMP), fSpeed(_player.fSpeed)
+	//{
+	//	//*this = _player;
+	//	m_Item = new CItem;
+	//	memcpy(m_Item, _player.m_Item, sizeof(CItem));
+	//	
+	//	std::cout << "ShallowCopy Call" << std::endl;
+	//}
 
 	//DeepCopy
 	CPlayer(const CPlayer& _player,bool _copy) :
@@ -103,7 +113,7 @@ int main()
 
 	//얕은복사 
 	//포인터 주소만 복사해서 두객체가 동일한 공간을 참조
-	CPlayer player2 = player;
+	//CPlayer player2 = player;
 	//player2.PlayerInfo();	//댕글링포인터
 
 	//댕글링포인터 ==> 더 이상 유효하지 않은 메모리 주소를 가리키는 포인터를 말한다.
@@ -113,10 +123,18 @@ int main()
 
 	//깊은복사
 	//포인터가 가리키는 데이터를 새로 동적할당 하여 복사 
-	//CPlayer player2(player, true);
+	CPlayer player2(player, true);
 	
-	//player2.SetString("홈큐피");
-	//player2.PlayerInfo();
+	//CItem item("공유아이템", 2);
+
+	player2.SetString("홈큐피");
+	//player2.SetItem(&item);
+	//player.SetItem(&item);
+	
+	player2.GetItem()->m_Name = "우리가 공유햇어요";
+
+	player2.PlayerInfo();
+	player.PlayerInfo();
 	
 
 	return 0;
