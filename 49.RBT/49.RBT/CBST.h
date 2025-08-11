@@ -155,6 +155,7 @@ public:
 
 	}
 
+
 };
 
 
@@ -179,7 +180,19 @@ public:
 
 
 	}
-
+	~CBST()
+	{
+		if (m_pRoot != nullptr)
+		{
+			delete m_pRoot;
+			m_pRoot = nullptr;
+		}
+		if (m_pNil != nullptr)
+		{
+			delete  m_pNil;
+			m_pNil = nullptr;
+		}
+	}
 public:
 	bool insert(const FPair<T1, T2>& _pair);
 	FBSTNode<T1, T2>* GetInOrderSuccessor(FBSTNode<T1, T2>* _pNode);
@@ -306,7 +319,8 @@ public:
 		{
 
 		}
-
+		
+		
 
 
 		friend class CBST<T1, T2>;
