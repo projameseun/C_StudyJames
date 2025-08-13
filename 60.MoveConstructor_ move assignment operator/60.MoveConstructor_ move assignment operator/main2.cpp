@@ -1,129 +1,158 @@
-#include <iostream>
+ï»¿#include <iostream>
 
 using namespace std;
 
-class MoveCopy {
+class MoveCopy
+{
 private:
-    int m_idata;
-    char* m_Str;
+	int m_idata;
+	char* m_str;
 
 public:
-    MoveCopy()
-        : m_idata(0), m_Str(nullptr) {
-        cout << "±âº» »ı¼ºÀÚ È£Ãâ" << endl;
-    }
+	MoveCopy() : m_idata(0), m_str(nullptr)
+	{
+		cout << "ê¸°ë³¸ ìƒì„±ì í˜¸ì¶œ" << endl;
+	}
 
-    // º¹»ç »ı¼ºÀÚ (±íÀº º¹»ç)
-    MoveCopy(const MoveCopy& other)
-        : m_idata(other.m_idata) {
-        if (other.m_Str) {
-            size_t len = strlen(other.m_Str) + 1;
-            m_Str = new char[len];
-            strcpy_s(m_Str, len, other.m_Str);
-        }
-        else {
-            m_Str = nullptr;
-        }
-        cout << "º¹»ç »ı¼ºÀÚ È£Ãâ" << endl;
-    }
+	//ë³µì‚¬ ìƒì„±ì(ê¹Šì€ë³µì‚¬)
+	MoveCopy(const MoveCopy& other) :m_idata(other.m_idata), m_str(other.m_str)
+	{
+		if (other.m_str)
+		{
+			size_t len = strlen(other.m_str) + 1;
+			m_str = new char[len];
+			strcpy_s(m_str, len, other.m_str);
+		}
+		else
+		{
+			m_str = nullptr;
+		}
 
-    // º¹»ç ´ëÀÔ ¿¬»êÀÚ (±íÀº º¹»ç)
-    MoveCopy& operator=(const MoveCopy& other) {
-        if (this == &other) return *this;
-        m_idata = other.m_idata;
-        delete[] m_Str;
-        if (other.m_Str) {
-            size_t len = strlen(other.m_Str) + 1;
-            m_Str = new char[len];
-            strcpy_s(m_Str, len, other.m_Str);
-        }
-        else {
-            m_Str = nullptr;
-        }
-        cout << "º¹»ç ´ëÀÔ ¿¬»êÀÚ È£Ãâ" << endl;
-        return *this;
-    }
-
-    // ÀÌµ¿ »ı¼ºÀÚ
-  /*  MoveCopy(MoveCopy&& other) noexcept
-        : m_idata(other.m_idata), m_Str(other.m_Str) {
-        other.m_Str = nullptr;
-        other.m_idata = 0;
-        cout << "ÀÌµ¿ »ı¼ºÀÚ È£Ãâ" << endl;
-    }*/
-
-    MoveCopy(MoveCopy&& other) noexcept
-        : m_idata(std::move(other.m_idata)), m_Str(std::move(other.m_Str))
-    {
-        other.m_Str = nullptr;
-        other.m_idata = 0;
-        cout << "ÀÌµ¿ »ı¼ºÀÚ È£Ãâ" << endl;
-    }
+		std::cout << "ê¹Šì€ ë³µì‚¬ ìƒì„±ì í˜¸ì¶œ " << std::endl;
 
 
-    // ÀÌµ¿ ´ëÀÔ ¿¬»êÀÚ
+	}
+
+	//ë³µì‚¬ ëŒ€ì…ì—°ì‚°ì (ê¹Šì€ë³µì‚¬)
+	MoveCopy& operator=(const MoveCopy& other)
+	{
+		if (this == &other)
+		{
+			return *this;
+		}
+
+		delete[] m_str;
+
+		//ì•„ë˜ if else ì˜ˆì™¸ì²˜ë¦¬ ìƒí™©
+	/*	â€¢ë¬¸ìì—´ì´ ìˆëŠ” ê²½ìš° : ì•ˆì „í•˜ê²Œ ë©”ëª¨ë¦¬ë¥¼ ìƒˆë¡œ í• ë‹¹í•˜ê³  ë³µì‚¬
+		â€¢ë¬¸ìì—´ì´ ì—†ëŠ” ê²½ìš° : ë¶ˆí•„ìš”í•œ ë©”ëª¨ë¦¬ í• ë‹¹ ì—†ì´ í¬ì¸í„°ë¥¼ nullptrë¡œ ì„¤ì •
+		â†’ í”„ë¡œê·¸ë¨ì´ ë¶ˆí•„ìš”í•œ ë©”ëª¨ë¦¬ ì ‘ê·¼ / í•´ì œë¥¼ í•˜ì§€ ì•Šë„ë¡ ë°©ì§€*/
+
+		if (other.m_str)
+		{
+			size_t len = strlen(other.m_str) + 1;
+			m_str = new char[len];
+			strcpy_s(m_str, len, other.m_str);
+		}
+		else
+		{
+			m_str = nullptr;
+		}
+
+		std::cout << "ê¹Šì€ë³µì‚¬ ëŒ€ì… ì—°ì‚°ì í˜¸ì¶œ " << std::endl;
+		return *this;
+
+	}
+
+	// ì´ë™ ìƒì„±ì
+/*  MoveCopy(MoveCopy&& other) noexcept
+	  : m_idata(other.m_idata), m_str(other.m_str) {
+	  other.m_str = nullptr;
+	  other.m_idata = 0;
+	  cout << "ì´ë™ ìƒì„±ì í˜¸ì¶œ" << endl;
+  }*/
+
+	MoveCopy(MoveCopy&& other) noexcept
+		: m_idata(std::move(other.m_idata)), m_str(std::move(other.m_str))
+	{
+		// ì„ì‹œ ê°ì²´ì†Œë©¸ì‹œì— ë©”ëª¨ë¦¬ë¥¼ í•´ì œí•˜ì§€ ëª»í•˜ê²Œí•œë‹¤
+		other.m_str = nullptr;
+		other.m_idata = 0;
+		cout << "ì´ë™ ìƒì„±ì í˜¸ì¶œ" << endl;
+	}
+
+
+	// ì´ë™ ëŒ€ì… ì—°ì‚°ì
   /*  MoveCopy& operator=(MoveCopy&& other) noexcept {
-        if (this == &other) return *this;
-        delete[] m_Str;
-        m_idata = other.m_idata;
-        m_Str = other.m_Str;
-        other.m_Str = nullptr;
-        other.m_idata = 0;
-        cout << "ÀÌµ¿ ´ëÀÔ ¿¬»êÀÚ È£Ãâ" << endl;
-        return *this;
-    }*/
+		if (this == &other) return *this;
+		delete[] m_str;
+		m_idata = other.m_idata;
+		m_str = other.m_str;
+		other.m_Str = nullptr;
+		other.m_idata = 0;
+		cout << "ì´ë™ ëŒ€ì… ì—°ì‚°ì í˜¸ì¶œ" << endl;
+		return *this;
+	}*/
 
-    // ÀÌµ¿ ´ëÀÔ ¿¬»êÀÚ (move »ç¿ë)
-    MoveCopy& operator=(MoveCopy&& other) noexcept {
-        if (this == &other) return *this;
-        delete[] m_Str;
-        m_idata = std::move(other.m_idata);
-        m_Str = std::move(other.m_Str);
-        other.m_Str = nullptr;
-        other.m_idata = 0;
-        cout << "ÀÌµ¿ ´ëÀÔ ¿¬»êÀÚ È£Ãâ" << endl;
-        return *this;
-    }
-    void SetData(int data) {
-        m_idata = data;
-    }
 
-    void SetName(const char* name) {
-        delete[] m_Str;
-        size_t len = strlen(name) + 1;
-        m_Str = new char[len];
-        strcpy_s(m_Str, len, name);
-    }
+	// ì´ë™ ëŒ€ì… ì—°ì‚°ì (move ì‚¬ìš©)
+	MoveCopy& operator=(MoveCopy&& other) noexcept
+	{
+		if (this == &other)
+			return *this;
+		delete[] m_str;
+		m_idata = std::move(other.m_idata);
+		//m_idata = static_cast<int&&>(other.m_idata);ë˜‘ê°™ì€ë§
+		m_str = std::move(other.m_str);
+		// m_Str = static_cast<char*&&>(other.m_Str);ë˜‘ê°™ì€ë§
+		other.m_str = nullptr;
+		other.m_idata = 0;
+		cout << "ì´ë™ ëŒ€ì… ì—°ì‚°ì í˜¸ì¶œ" << endl;
+		return *this;
 
-    int GetData() const {
-        return m_idata;
-    }
+	}
 
-    const char* GetName() const {
-        return m_Str;
-    }
+	void SetData(int data) {
+		m_idata = data;
+	}
 
-    ~MoveCopy() {
-        delete[] m_Str;
-        cout << "¼Ò¸êÀÚ È£Ãâ" << endl;
-    }
+	void SetName(const char* name) {
+		delete[] m_str;
+		size_t len = strlen(name) + 1;
+		m_str = new char[len];
+		strcpy_s(m_str, len, name);
+	}
+
+	int GetData() const {
+		return m_idata;
+	}
+
+	const char* GetName() const {
+		return m_str;
+	}
+
+	~MoveCopy() {
+		delete[] m_str;
+		cout << "ì†Œë©¸ì í˜¸ì¶œ" << endl;
+	}
 };
 
-int main() {
-    MoveCopy a;
-    a.SetData(10);
-    a.SetName("Å×½ºÆ®");
+int main()
+{
+	MoveCopy a;
+	a.SetData(10);
+	a.SetName("í…ŒìŠ¤íŠ¸");
 
-    MoveCopy b(a); // º¹»ç »ı¼ºÀÚ
-    MoveCopy c = std::move(a); // ÀÌµ¿ »ı¼ºÀÚ
-    MoveCopy d;
-    d = b; // º¹»ç ´ëÀÔ ¿¬»êÀÚ
-    d = static_cast<MoveCopy&&>(c); // ÀÌµ¿ ´ëÀÔ ¿¬»êÀÚ
+	MoveCopy b(a); // ë³µì‚¬ ìƒì„±ì
+	MoveCopy c = std::move(a); // ì´ë™ ìƒì„±ì
+	MoveCopy d;
+	d = b; // ë³µì‚¬ ëŒ€ì… ì—°ì‚°ì
+	d = static_cast<MoveCopy&&>(c); // ì´ë™ ëŒ€ì… ì—°ì‚°ì
 
-    cout << "a: " << a.GetData() << ", " << (a.GetName() ? a.GetName() : "null") << endl;
-    cout << "b: " << b.GetData() << ", " << b.GetName() << endl;
-    cout << "c: " << c.GetData() << ", " << (c.GetName() ? c.GetName() : "null") << endl;
-    cout << "d: " << d.GetData() << ", " << d.GetName() << endl;
+	cout << "a: " << a.GetData() << ", " << (a.GetName() ? a.GetName() : "null") << endl;
+	cout << "b: " << b.GetData() << ", " << b.GetName() << endl;
+	cout << "c: " << c.GetData() << ", " << (c.GetName() ? c.GetName() : "null") << endl;
+	cout << "d: " << d.GetData() << ", " << d.GetName() << endl;
 
-    return 0;
+	return 0;
 }
