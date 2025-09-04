@@ -180,7 +180,18 @@ public:
 
 
 	}
-	~CBST()
+	~CBST() {
+		Destroy(m_pRoot);
+		delete m_pNil;   // NIL도 잊지 말고 해제
+	}
+private:
+	void Destroy(FBSTNode<T1, T2>* node) {
+		if (node == nullptr || node == m_pNil) return;
+		Destroy(node->NodePosition[(int)NODE_POS::LCHILD]);
+		Destroy(node->NodePosition[(int)NODE_POS::RCHILD]);
+		delete node;
+	}
+	/*~CBST()
 	{
 		if (m_pRoot != nullptr)
 		{
@@ -192,7 +203,7 @@ public:
 			delete  m_pNil;
 			m_pNil = nullptr;
 		}
-	}
+	}*/
 public:
 	bool insert(const FPair<T1, T2>& _pair);
 	FBSTNode<T1, T2>* GetInOrderSuccessor(FBSTNode<T1, T2>* _pNode);
