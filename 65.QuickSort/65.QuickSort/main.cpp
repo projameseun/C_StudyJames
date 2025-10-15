@@ -31,8 +31,7 @@ int partition(vector<int>& _data, int pidx, int right)
 			int iTemp = _data[start];		//★★★swap이후 인덱스 이동을 안하면 무한 루프가 발생할수 있기때문에 꼭 해줘야된다.
 			_data[start] = _data[end];		//모든값이 같거나 , swap후 조건이 계속 참인경우에 인덱스 이동이없으면 무한루프 발생
 			_data[end] = iTemp;
-			start++;
-			end--;
+			
 		}
 
 		
@@ -99,8 +98,8 @@ void quicksort(vector<int>& _data, int left, int right)
 int main()
 {
 	
-	vector<int> data = { 54,34,41,89,67,16,52,23 };
-	//vector<int> data = { 1,1,1,1 };	//무한루프에 빠지는 예시
+	//vector<int> data = { 54,34,41,89,67,16,52,23 };
+	vector<int> data = { 1,1,1,1 };	//무한루프에 빠지는 예시
 
 	quicksort(data, 0, data.size()-1);
 
