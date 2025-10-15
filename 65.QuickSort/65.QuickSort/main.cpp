@@ -60,6 +60,39 @@ void quicksort(vector<int>& _data, int left, int right)
 	}
 }
 
+//재귀함수를 사용하지않고 직접 stack를 만들어서 관리하는법
+
+//void quicksort_iterative(vector<int>& data, int left, int right)
+//{
+//	// 최대 스택 크기: 데이터 크기만큼 충분히 크게
+//	int stack[100];
+//	int top = -1;
+//
+//	// 첫 구간 push
+//	stack[++top] = left;
+//	stack[++top] = right;
+//
+//	while (top >= 0)
+//	{
+//		// 구간 pop
+//		right = stack[top--];
+//		left = stack[top--];
+//
+//		if (left < right)
+//		{
+//			int pivot = partition(data, left, right);
+//
+//			// 왼쪽 구간 push
+//			stack[++top] = left;
+//			stack[++top] = pivot - 1;
+//
+//			// 오른쪽 구간 push
+//			stack[++top] = pivot + 1;
+//			stack[++top] = right;
+//		}
+//	}
+//}
+
 
 
 
