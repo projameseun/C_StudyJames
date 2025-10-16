@@ -1,131 +1,188 @@
-#include<iostream>
+#include <iostream>
 #include <vector>
+
 using namespace std;
 
-// 병합 정렬의 병합 단계
-void merge(vector<int>& _data, vector<int>& _sorted, int start, int end)
+void merge(vector<int>& _data, vector<int>& _sort, int left, int right)
 {
 
-   // std::cout << "병합: [" << left << ", " << right << "]" << std::endl;
+	//std::cout << "병합: [" << left << ", " << right << "]" << std::endl;
 
-    int mid = (start + end) / 2; // mid: 현재 구간의 중간 인덱스 (왼쪽/오른쪽 구간을 나누는 기준)
+	int mid = (left + right) / 2;
 
-    int lidx = start;    // lidx: 왼쪽 부분에서 비교할 현재 인덱스 (start ~ mid)
-    int ridx = mid + 1;  // ridx: 오른쪽 부분에서 비교할 현재 인덱스 (mid+1 ~ end)
-    int sortidx = start;       // k: 병합 결과를 저장할 인덱스 (start ~ end)
+	int ldx = left;
+	int rdx = mid + 1;
+	int sortidx = left;
 
-    // 두 구간을 비교하면서 작은 값을 _sorted에 저장
-    while (lidx <= mid && ridx <= end)
-    {
-        if (_data[lidx] <= _data[ridx])           // 왼쪽 값이 더 작거나 같으면
-            _sorted[sortidx++] = _data[lidx++];      // 왼쪽 값을 결과에 저장, i와 k 증가
-        else
-            _sorted[sortidx++] = _data[ridx++];      // 오른쪽 값이 더 작으면 오른쪽 값을 결과에 저장, j와 k 증가
-    }
 
-    // 남은 왼쪽 구간 복사
-    while (lidx <= mid)
-        _sorted[sortidx++] = _data[lidx++];
+	//두 구간을 비교하면서 작은 값을 차례대로 sorted에 저장한다
 
-    // 남은 오른쪽 구간 복사
-    while (ridx <= end)
-        _sorted[sortidx++] = _data[ridx++];
+	while (ldx <= mid && rdx <= right)
+	{
+		if (_data[ldx] <= _data[rdx])
+		{
+			_sort[sortidx++] = _data[ldx++];
+		}
+		else
+		{
+			_sort[sortidx++] = _data[rdx++];
+		}
 
-    // 병합 결과를 원본 데이터에 복사
-    for (int i = start; i <= end; i++) _data[i] = _sorted[i];
+	}
+
+	//남은 왼쪽 구간복사 
+	while (ldx <= mid)
+	{
+		_sort[sortidx++] = _data[ldx++];
+	}
+	//남은 오른쪽 구간복사 
+	while (rdx <= right)
+	{
+		_sort[sortidx++] = _data[rdx++];
+	}
+
+	//병합 결과를 원본 데이터에 복사한다
+	for (int i = 0; i <= right; ++i)
+	{
+		_data[i] = _sort[i];
+	}
 }
 
 
-void partition(vector<int>& _data,vector<int>&_sorted,int left, int right, int depth)
+void partition(vector<int>& _data, vector<int>& _sort, int left, int right, int depth)
 {
-    //std::cout << std::string(depth * 2, ' ') << "partition 진입: [" << left << ", " << right << "]" << std::endl;
-    int mid = 0;
-    if (left < right)
-    {
-        mid = (left + right) / 2;
-        partition(_data, _sorted, left, mid, depth + 1);
-        partition(_data, _sorted, mid + 1, right, depth + 1);
-        merge(_data, _sorted, left, right);
-    }
-    //std::cout << std::string(depth * 2, ' ') << "partition 복귀: [" << left << ", " << right << "]" << std::endl;
+	//std::cout << std::string(depth * 2, ' ') << "partition 진입: [" << left << ", " << right << "]" << std::endl;
+	int iMid = 0;
+	if (left < right)
+	{
+		iMid = (left + right) / 2;
+		partition(_data, _sort, left, iMid, depth + 1);
+		partition(_data, _sort, iMid + 1, right, depth + 1);
+		merge(_data, _sort, left, right);
+	}
+
+	//std::cout << std::string(depth * 2, ' ') << "partition 복귀: [" << left << ", " << right << "]" << std::endl;
 }
 
 int main()
 {
-    vector<int> data = { 6,5,3,1,8,7,2,4 };
-    vector<int> sorted;
-    sorted.resize(data.size());
-    partition(data, sorted, 0, data.size() - 1, 0);
 
-    for (int i = 0; i < data.size(); i++) printf("%d\n", data[i]);
+	//vector<int> iData = { 6,5,3,1,8,7,2,4 };
+	vector<int> iData = { 6,50,100,20,3,11,48,4 };
+	vector<int> iSortData;
+
+	iSortData.resize(iData.size());
+
+	partition(iData, iSortData, 0, iData.size() - 1, 0);
+
+
+	for (const int data : iData)
+	{
+		std::cout << data << std::endl;
+	}
+
+
+	return 0;
 }
-
 
 /*
-left, right => 배열을 가리키는 인덱스 번호
+	left,right =>왼쪽 끝 오른쪽 끝의 인덱스 번호
+
+	left = 0; , right = 7;
+	0 < 7 TRUE
+	{
+		iMid = (0 + 7) / 2 ==> 3
+		partition(_data, _sort, left, iMid);	//(0,1,2,3)왼쪽
+		partition(_data, _sort, iMid+1, right); //(4,5,6,7)	오른쪽
+		//merge(_data, _sort, left, right);
+	}
+
+	<0과3스택>
+	left = 0; , right = 3;
+	0 < 3 TRUE
+	{
+		iMid = (0 + 3) / 2 ==> 1
+		partition(_data, _sort, left, iMid);	//(0,1)	왼쪽
+		partition(_data, _sort, iMid+1, right); //(2,3) 오른쪽
+		//merge(_data, _sort, left, right);
+	}
+
+	<0과1스택>
+	left = 0; , right = 1;
+	0 < 1 TRUE
+	{
+		iMid = (0 + 1) / 2 ==> 0
+		partition(_data, _sort, left, iMid);	//(0,0)	왼쪽
+		partition(_data, _sort, iMid+1, right);	//(1,1)오른쪽
+		//merge(_data, _sort, left, right);
+	}
+	★★★★★★★★★★
+	left = 0; , right = 0;
+	0 < 0 FALSE
+	{
+		이때 스택에 쌓여있기때문에 다시 뒤로 돌아간다
+	}
+	<0과1스택>
+	★★★★★★★★★★
+	left = 0; , right = 1;
+	0 < 1 TRUE
+	{
+		iMid = (0 + 1) / 2 ==> 0
+		partition(_data, _sort, left, iMid);	//(0,0)	왼쪽
+		partition(_data, _sort, iMid+1, right);	//(1,1)오른쪽
+		//merge(_data, _sort, left, right);
+	}
+
+	실행되지 않는다
+	left = 1; , right = 1;
+	1 < 1 TRUE
+	{
+		iMid = (0 + 1) / 2 ==> 0
+		partition(_data, _sort, left, iMid);	//(0,0)	왼쪽
+		partition(_data, _sort, iMid+1, right);	//(1,1)오른쪽
+		//merge(_data, _sort, left, right);
+	}
+	<0과1스택>
+	left = 0; , right = 1;
+	0 < 1 TRUE
+	{
+		iMid = (0 + 1) / 2 ==> 0
+		partition(_data, _sort, left, iMid);	//(0,0)	왼쪽
+		partition(_data, _sort, iMid+1, right);	//(1,1)오른쪽
+		//merge(_data, _sort, left, right);
+	}
+	여기서 0,1 을 병합한다
 
 
-left = 0, right = 7
-0 < 7    TRUE
-{
-    mid = (0 + 7) / 2  = 3
-    PARTITION(_data, _sorted, 0, 3);         // [1, 3, 5, 6]
-    PARTITION(_data,sorted, 3 + 1, 7);       // [2, 4, 7, 8]
-    MERGE(_data, _sorted, 0, right);         // 마지막 병합 [1, 2, 3, 4, 5, 6, 7, 8]
-}
+	<0과3스택>
+	left = 0; , right = 3;
+	0 < 3 TRUE
+	{
+		iMid = (0 + 3) / 2 ==> 1
+		partition(_data, _sort, left, iMid);	//(0,1)	왼쪽
+		partition(_data, _sort, iMid+1, right); //(2,3) 오른쪽
+		//merge(_data, _sort, left, right);
+	}
 
 
-left = 0, right = 3
-0 < 3   TRUE
-{
-    mid = (0 + 3) / 2 = 1
-    PARTITION(_data, _sorted, 0, 1);        // [5, 6]
-    PARTITION(_data,sorted, 1 + 1, 3);      // [1, 3]
-    MERGE(_data, _sorted, 0, 3);
-}
+	<2과3스택> 오른쪽
+	left = 2; , right = 3;
+	2 < 3 TRUE
+	{
+		iMid = (2 + 3) / 2 ==> 2
+	실행안됨	partition(_data, _sort, left, iMid);	//(2,2)	왼쪽
+	실행	partition(_data, _sort, iMid+1, right); //(3,3) 오른쪽
+		//merge(_data, _sort, left, right);
+	}
+	여기서 2,3을 병합한다.
+	이렇게 반복을해서
+
+	[0,1] [2,3] 을 병합하게되고
+
+	그다음 처음에 나눴단 반대쪽 오른쪽도 똑같이
+	나눌수없을때까지 나누고 병합을 해서 올라온다
+	최종적으로
+	[0,1,2,3] + [4,5,6,7,] 이된다.
 
 
-left = 0, right = 1
-0 < 1   TRUE
-{
-    mid = (0 + 1) / 2 = 0
-    PARTITION(_data, _sorted, 0, 0);        // 아무것도 안함
-    PARTITION(_data,sorted, 0 + 1, 1);      // 아무것도 안함
-    MERGE(_data, _sorted, 0, 1);            // left = data[0] = 6, right = data[1] = 5      =>  MERGE로 정렬하고 합침.
-}
-
-left = 0, right = 0
-0 < 0   FALSE
-
----
-
-2-1.
-left = 4, right = 7
-4 < 7   TRUE
-{
-    mid = (4 + 7) / 2 = 5
-    PARTITION(_data, _sorted, 4, 5);        // [7, 8]
-    PARTITION(_data,sorted, 5 + 1, 7);      // [2, 4]
-    MERGE(_data, _sorted, 0, 3);            // 우측 마지막 병합 [2, 4, 7, 8]
-}
-
-3-1.
-left = 4, right = 5
-4 < 5   TRUE
-{
-    mid = (4 + 5) / 2 = 4
-    PARTITION(_data, _sorted, 4, 4);        // 아무것도 안함
-    PARTITION(_data,sorted, 4 + 1, 5);      // 아무것도 안함
-    MERGE(_data, _sorted, 4, 5);            // data[4] = 8, data[5] = 7 MERGE 함수 실행.
-}
-
-3-2.
-left = 6, right = 7
-6 < 7   TRUE
-{
-    mid = (6 + 7) / 2 = 6
-    PARTITION(_data, _sorted, 6, 6);        // 아무것도 안함
-    PARTITION(_data,sorted, 6 + 1, 7);      // 아무것도 안함
-    MERGE(_data, _sorted, 6, 7);            // data[6] = 2, data[7] = 4 MERGE 함수 실행.
-}
 */
