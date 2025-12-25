@@ -49,7 +49,7 @@ struct FBSTNode
 	FPair<T1, T2>		pair;					//data	map에서는 pair로 불른다.
 
 	//같은노드가 있기때문에 배열로 만들어서 관리하면 좋다 
-	FBSTNode* NodePosition[(int)NODE_POS::START];		//부모 자식둘을 관리하는 노드메모리
+	FBSTNode*	NodePosition[(int)NODE_POS::START];		//부모 자식둘을 관리하는 노드메모리
 	NODE_COLOR	NodeColor;
 	int			iExtraBlack = 0;		//extrablack 있는지 없는지 체크  1.이면 부여된거고 0이면 부여안된거 
 
