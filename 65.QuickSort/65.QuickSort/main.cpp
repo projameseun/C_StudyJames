@@ -32,6 +32,8 @@ int partition(vector<int>& _data, int pidx, int right)
 			_data[start] = _data[end];		//모든값이 같거나 , swap후 조건이 계속 참인경우에 인덱스 이동이없으면 무한루프 발생
 			_data[end] = iTemp;
 			
+			start++;
+			end--;
 		}
 
 		
